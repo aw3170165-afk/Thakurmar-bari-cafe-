@@ -4,158 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thakurmar Bari Cafe | Digital Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Metropolis:wght@300;400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --z-red: #E23744;
-            --z-dark-red: #CB202D;
-            --z-black: #1C1C1C;
-            --z-gray: #696969;
-            --z-border: #E8E8E8;
-            --bg-premium: #F9F9FB; /* Soft Blue-Greyish White Background */
-            --card-shadow: 0 8px 16px rgba(0,0,0,0.04);
-            --veg: #24963F;
-            --nonveg: #E43B4F;
+            --brand-red: #D32F2F; 
+            --brand-yellow: #FFD54F; 
+            --bg-cream: #FFFDE7; 
+            --text-dark: #3E2723;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Metropolis', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        body { background-color: var(--bg-premium); color: var(--z-black); scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-cream); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 100px; }
 
-        /* --- Premium Sticky Header --- */
         header {
-            background: linear-gradient(135deg, var(--z-red), var(--z-dark-red));
-            padding: 25px 15px 15px;
+            background: #fff;
+            padding: 20px 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(226, 55, 68, 0.2);
-            color: white;
-            border-radius: 0 0 20px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--brand-yellow);
         }
 
-        .b-title { font-family: 'Hind Siliguri', sans-serif; color: #FFF; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        header h1 { font-size: 1.1rem; text-align: center; font-weight: 700; margin-bottom: 3px; color: #FFEBEE; }
-        header p { font-size: 0.8rem; text-align: center; color: #FFCDD2; margin-bottom: 15px; }
+        .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--brand-red); font-size: 1.8rem; }
+        header p { font-size: 0.8rem; color: #795548; margin-top: 5px; }
 
-        /* --- Category Filter --- */
-        .cat-nav {
-            display: flex;
-            overflow-x: auto;
-            padding: 12px 0;
-            gap: 12px;
-            white-space: nowrap;
-            background: transparent;
-        }
+        .cat-nav { display: flex; overflow-x: auto; padding: 12px 10px; gap: 10px; background: #fff; }
         .cat-nav::-webkit-scrollbar { display: none; }
         .chip {
             padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
+            border: 2px solid var(--brand-yellow);
+            border-radius: 25px;
             font-size: 0.8rem;
-            font-weight: 600;
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-        }
-        .chip.active { background: #fff; color: var(--z-red); border-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-        /* --- Menu Container --- */
-        .container { max-width: 700px; margin: 0 auto; padding: 20px 15px; }
-        
-        .cat-section { margin-bottom: 35px; }
-        .cat-name { 
-            font-size: 1.3rem; 
-            font-weight: 700; 
-            margin-bottom: 18px; 
-            color: var(--z-black); 
-            display: flex;
-            align-items: center;
-        }
-        .cat-name::after { content: ''; flex: 1; height: 1.5px; background: #E0E0E0; margin-left: 15px; border-radius: 2px; }
-
-        /* --- Premium Item Card --- */
-        .item {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255,255,255,0.8);
-            transition: transform 0.2s;
-        }
-        .item:active { transform: scale(0.98); }
-
-        .info { flex: 1; padding-right: 15px; }
-        
-        .badge { width: 15px; height: 15px; border: 1.5px solid; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; border-radius: 2px; }
-        .badge::after { content: ''; width: 6px; height: 6px; border-radius: 50%; }
-        .v { border-color: var(--veg); } .v::after { background: var(--veg); }
-        .nv { border-color: var(--nonveg); } .nv::after { background: var(--nonveg); }
-
-        .name { font-size: 1.05rem; font-weight: 600; color: #1C1C1C; margin-bottom: 4px; }
-        .price { font-weight: 700; font-size: 1rem; color: #444; }
-
-        /* --- Modern Add/Qty Button --- */
-        .btn-box { position: relative; width: 100px; text-align: center; }
-        
-        .add-btn {
-            background: #fff;
-            color: var(--z-red);
-            border: 1px solid var(--z-red);
-            padding: 8px 0;
-            border-radius: 10px;
             font-weight: 700;
-            width: 100%;
+            background: #FFF9C4;
+            color: var(--brand-red);
+            white-space: nowrap;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(226, 55, 68, 0.1);
-            transition: 0.2s;
         }
+        .chip.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
 
-        .qty-ctrl {
-            display: none;
-            background: var(--z-red);
-            color: #fff;
-            border-radius: 10px;
-            padding: 8px 10px;
+        .container { max-width: 650px; margin: 0 auto; padding: 15px; }
+        .cat-section { margin-bottom: 30px; }
+        .cat-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--brand-red); border-bottom: 2px solid var(--brand-yellow); display: inline-block; }
+
+        .item {
+            background: #fff;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(226, 55, 68, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-        .q-btn { background: none; border: none; color: #fff; font-size: 1.3rem; font-weight: bold; width: 30px; cursor: pointer; }
-        .q-num { font-weight: 700; font-size: 1rem; }
 
-        /* --- Sleek Bottom Cart Bar --- */
-        .footer-cart {
+        .name { font-size: 1rem; font-weight: 600; }
+        .price { font-weight: 700; color: var(--brand-red); }
+
+        .add-btn {
+            background: var(--brand-yellow);
+            color: var(--brand-red);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cart-bar {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 92%;
-            max-width: 550px;
-            background: #1C1C1C;
+            width: 90%;
+            background: var(--brand-red);
             color: #fff;
-            padding: 15px 22px;
-            border-radius: 16px;
+            padding: 16px 20px;
+            border-radius: 15px;
             display: none;
             justify-content: space-between;
             align-items: center;
-            z-index: 2000;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-        .f-text { font-size: 0.9rem; letter-spacing: 0.3px; }
-        .f-text b { font-size: 1.1rem; color: #FFF; }
-        .f-btn { background: var(--z-red); color: #fff; padding: 10px 20px; border-radius: 10px; font-weight: 700; border: none; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-        .f-btn:active { background: var(--z-dark-red); }
-
-        @media (max-width: 480px) {
-            header h1 { font-size: 1rem; }
-            .container { padding: 15px 10px; }
         }
     </style>
 </head>
@@ -163,52 +92,48 @@
 
 <header>
     <div class="b-title">ঠাকুরমার বাড়ি ক্যাফে</div>
-    <h1>Thakurmar Bari Cafe</h1>
     <p>📍 Kalyani Chadamari More | 📞 8335952010</p>
-    
-    <div class="cat-nav" id="nav-scroll">
-        </div>
+    <div class="cat-nav" id="nav-scroll"></div>
 </header>
 
-<div class="container" id="main-menu">
-    </div>
+<div class="container" id="main-menu"></div>
 
-<div class="footer-cart" id="cart-bar">
-    <div class="f-text">
-        <span id="t-qty">0</span> Item(s) added | <b>₹<span id="t-amt">0</span></b>
-    </div>
-    <button class="f-btn" onclick="sendToWhatsApp()">View Order ➔</button>
+<div class="cart-bar" id="cart-bar">
+    <div id="cart-info">0 Item(s) | ₹0</div>
+    <button style="background:var(--brand-yellow); border:none; padding:8px; border-radius:5px; font-weight:700;" onclick="sendToWhatsApp()">Order ➔</button>
 </div>
 
 <script>
     const menuData = {
         "TEA & COFFEE ☕": [
-            {n: "Milk Tea (Small)", p: 10, v: true}, {n: "Milk Tea (Large)", p: 20, v: true},
-            {n: "Cold Coffee", p: 50, v: true}, {n: "Masala Tea", p: 10, v: true}, {n: "Black Coffee", p: 30, v: true}
+            {n: "Black Tea", p: 15}, {n: "Milk Tea (S)", p: 10}, {n: "Milk Tea (L)", p: 20},
+            {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
+            {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
         ],
         "DRINK'S 🍹": [
-            {n: "Coconut Water Special", p: 80, v: true}, {n: "Plain Lassi", p: 18, v: true}, 
-            {n: "Badam Lassi", p: 30, v: true}, {n: "Mango Juice Special", p: 40, v: true}
+            {n: "Coconut Water", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
+            {n: "Aam Pora Sharbat", p: 20}, {n: "Mango Juice", p: 40}, {n: "Orange Juice", p: 50},
+            {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
         ],
         "MAGGIE & BURGER 🍔": [
-            {n: "Veg Maggie", p: 40, v: true}, {n: "Chicken Maggie", p: 50, v: false},
-            {n: "Chicken Burger", p: 90, v: false}, {n: "Chicken Cheese Ball", p: 90, v: false}
-        ],
-        "SPECIAL ⭐": [
-            {n: "Green Peas", p: 0, v: true}, {n: "Basa Fish Premium", p: 0, v: false},
-            {n: "Prawn", p: 0, v: false}, {n: "Amritsari Crab Claw", p: 0, v: false}
+            {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
+            {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
         ],
         "MOMO'S 🥟": [
-            {n: "Veg Momo (Steam)", p: 60, v: true}, {n: "Chicken Momo (Steam)", p: 70, v: false},
-            {n: "Pizza / Chicken Momo", p: 99, v: false}
+            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
+            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99},
+            {n: "Pizza / Chicken Momo", p: 99}
         ],
         "STATER'S 🍟": [
-            {n: "French Fries", p: 70, v: true}, {n: "Peri Peri Fries", p: 99, v: true},
-            {n: "Chicken Cheese Pizza", p: 120, v: false}, {n: "Chicken Nuggets (8ps)", p: 99, v: false}
+            {n: "French Fries", p: 70}, {n: "Peri Peri Fries", p: 99}, {n: "Chicken Cheese Pizza", p: 120},
+            {n: "Chicken Nuggets", p: 99}, {n: "Chicken Popcorn", p: 99}, {n: "Chicken Wings", p: 99}, {n: "Chicken Finger", p: 99}
         ],
         "COMBO 🍱": [
-            {n: "Tea(2)+Fries+Momos", p: 150, v: false},
-            {n: "Tea(5)+Fries+Momos", p: 150, v: false}
+            {n: "Tea(2)+Fries+Momos", p: 150}, {n: "Tea(5)+Fries+Momos", p: 150}
+        ],
+        "SPECIAL ⭐": [
+            {n: "Green Peas", p: 0}, {n: "Basa Fish Premium", p: 0}, {n: "Prawan", p: 0}, 
+            {n: "Amritsari Crab Claw", p: 0}, {n: "Veg Mayyanoise", p: 0}
         ]
     };
 
@@ -217,96 +142,37 @@
     function render() {
         const container = document.getElementById('main-menu');
         const nav = document.getElementById('nav-scroll');
-        let html = '';
-        let chips = '';
+        let html = '', chips = '';
 
         for (const [cat, items] of Object.entries(menuData)) {
-            const catID = cat.replace(/[^a-zA-Z0-9]/g, '');
-            chips += `<div class="chip" onclick="go('${catID}', this)">${cat}</div>`;
-            html += `<div class="cat-section" id="${catID}"><h2 class="cat-name">${cat}</h2>`;
-            
+            const id = cat.replace(/[^a-z0-9]/gi, '');
+            chips += `<div class="chip" onclick="document.getElementById('${id}').scrollIntoView({behavior:'smooth'})">${cat}</div>`;
+            html += `<div class="cat-section" id="${id}"><h2 class="cat-name">${cat}</h2>`;
             items.forEach(item => {
-                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                const type = item.v ? 'v' : 'nv';
-                const price = item.p === 0 ? "Ask Price" : "₹" + item.p;
-                
-                html += `
-                <div class="item">
-                    <div class="info">
-                        <div class="badge ${type}"></div>
-                        <div class="name">${item.n}</div>
-                        <div class="price">${price}</div>
-                    </div>
-                    <div class="btn-box">
-                        <button class="add-btn" id="a-${id}" onclick="up('${item.n}',${item.p},1,'${id}')">ADD</button>
-                        <div class="qty-ctrl" id="c-${id}">
-                            <button class="q-btn" onclick="up('${item.n}',${item.p},-1,'${id}')">−</button>
-                            <span class="q-num" id="q-${id}">0</span>
-                            <button class="q-btn" onclick="up('${item.n}',${item.p},1,'${id}')">+</button>
-                        </div>
-                    </div>
-                </div>`;
+                html += `<div class="item"><div><div class="name">${item.n}</div><div class="price">${item.p? '₹'+item.p : 'Ask Price'}</div></div><button class="add-btn" onclick="add('${item.n}',${item.p})">ADD</button></div>`;
             });
             html += `</div>`;
         }
-        container.innerHTML = html;
-        nav.innerHTML = chips;
-        if(nav.firstChild) nav.firstChild.classList.add('active');
+        container.innerHTML = html; nav.innerHTML = chips;
     }
 
-    function up(name, price, d, id) {
-        if (!cart[name]) cart[name] = { q: 0, p: price };
-        cart[name].q += d;
-
-        const aBtn = document.getElementById(`a-${id}`);
-        const ctrl = document.getElementById(`c-${id}`);
-        const qNum = document.getElementById(`q-${id}`);
-
-        if (cart[name].q <= 0) {
-            delete cart[name];
-            aBtn.style.display = 'block';
-            ctrl.style.display = 'none';
-        } else {
-            aBtn.style.display = 'none';
-            ctrl.style.display = 'flex';
-            qNum.innerText = cart[name].q;
-        }
+    function add(n, p) {
+        cart[n] = (cart[n] || 0) + 1;
         updateBar();
     }
 
     function updateBar() {
         const bar = document.getElementById('cart-bar');
-        let tQ = 0, tA = 0;
-        for (const i in cart) { tQ += cart[i].q; tA += (cart[i].q * cart[i].p); }
-        if (tQ > 0) {
-            bar.style.display = 'flex';
-            document.getElementById('t-qty').innerText = tQ;
-            document.getElementById('t-amt').innerText = tA;
-        } else {
-            bar.style.display = 'none';
-        }
-    }
-
-    function go(id, el) {
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        const offset = 160; 
-        const element = document.getElementById(id);
-        const topPos = element.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: topPos, behavior: 'smooth' });
+        let q = 0, a = 0;
+        for (const n in cart) { q += cart[n]; a += (cart[n] * (menuData["TEA & COFFEE ☕"].find(i=>i.n===n)?.p || 0)); }
+        if (q > 0) { bar.style.display = 'flex'; document.getElementById('cart-info').innerText = `${q} Item(s) | Order Now`; }
     }
 
     function sendToWhatsApp() {
-        let msg = "*ORDER - THAKURMAR BARI*%0A------------------------------%0A";
-        let total = 0;
-        for (const i in cart) {
-            msg += `• *${i}* x ${cart[i].q} = ₹${cart[i].q * cart[i].p}%0A`;
-            total += cart[i].q * cart[i].p;
-        }
-        msg += `------------------------------%0A*Total Bill: ₹${total}*`;
-        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
+        let msg = "*ORDER - THAKURMAR BARI*%0A";
+        for (const n in cart) msg += `• ${n} x ${cart[n]}%0A`;
+        window.open(`https://wa.me/918335952010?text=${msg}`);
     }
-
     render();
 </script>
 </body>
