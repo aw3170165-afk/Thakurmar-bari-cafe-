@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thakurmar Bari Cafe - Order Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #8b0000;
+            --accent-gold: #d4af37;
+            --bg-dark: #1a1a1a;
+            --card-bg: #ffffff;
+            --text-main: #333;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f1ea;
+            color: var(--text-main);
+            padding-bottom: 100px;
+        }
+
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+            border-bottom: 5px solid var(--accent-gold);
+            margin-bottom: 30px;
+        }
+
+        .bengali-font { font-family: 'Hind Siliguri', sans-serif; font-size: 1.4em; }
+
+        header h1 { margin-bottom: 5px; font-weight: 700; }
+        header p { font-size: 0.9em; opacity: 0.9; letter-spacing: 1px; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
+
+        .category-title {
+            color: var(--primary-red);
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 15px;
+            margin: 30px 0 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            background: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .item-details { flex: 1; }
+        .item-name { font-weight: 600; display: block; font-size: 1.05rem; margin-bottom: 4px; }
+        .item-price { color: var(--primary-red); font-weight: 700; }
+
+        /* Quantity Controls */
+        .controls {
+            display: flex;
+            align-items: center;
+            background: #f8f8f8;
+            border-radius: 25px;
+            padding: 5px 12px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-qty {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .qty-val { margin: 0 12px; font-weight: 700; min-width: 15px; text-align: center; }
+
+        /* Sticky Footer Cart */
+        .cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+            z-index: 1000;
+        }
+
+        .order-btn {
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .order-btn:hover { background: #fff; }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.8rem; }
+            .items-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="bengali-font">ঠাকুরমার বাড়ি ক্যাফে</h1>
+    <h1>Thakurmar Bari Cafe</h1>
+    <p>Kalyani Chadamari More | Call: 8335952010</p>
+</header>
+
+<div class="container" id="menu-container"></div>
+
+<div class="cart-bar" id="cart-bar">
+    <div>
+        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
+    </div>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp</button>
+</div>
+
+<script>
+    const menuData = {
+        "Tea & Coffee ☕": [
+            {n: "Black Tea", p: 15}, {n: "Milk Tea (S)", p: 10}, {n: "Milk Tea (L)", p: 20},
+            {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
+            {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
+        ],
+        "Drinks 🥤": [
+            {n: "Coconut Water Special", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
+            {n: "Masala Aam Pora Sharbat", p: 20}, {n: "Mango Juice Special", p: 40},
+            {n: "Special Orange Juice", p: 50}, {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
+        ],
+        "Maggie & Burger 🍔": [
+            {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
+            {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
+        ],
+        "Momo Specials 🥟": [
+            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
+            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99}
+        ],
+        "Snacks & Starters 🍟": [
+            {n: "French Fries", p: 70}, {n: "Peri Peri French Fries", p: 99},
+            {n: "Chicken Cheese Pizza", p: 120}, {n: "Chicken Nuggets (8pcs)", p: 99},
+            {n: "Chicken Popcorn (16pcs)", p: 99}, {n: "Chicken Wings (3pcs)", p: 99},
+            {n: "Chicken Finger (6pcs)", p: 99}
+        ],
+        "Combos 🍱": [
+            {n: "Tea(2)+Fries+Momos Combo", p: 150},
+            {n: "Tea(5)+Fries+Momos Combo", p: 150}
+        ]
+    };
+
+    let cart = {};
+
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        let html = '';
+        for (const [cat, items] of Object.entries(menuData)) {
+            html += `<h2 class="category-title">${cat}</h2><div class="items-grid">`;
+            items.forEach(item => {
+                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
+                html += `
+                <div class="item-card">
+                    <div class="item-details">
+                        <span class="item-name">${item.n}</span>
+                        <span class="item-price">₹${item.p}</span>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">-</button>
+                        <span class="qty-val" id="qty-${id}">0</span>
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function updateQty(name, price, delta, id) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price };
+        cart[name].qty += delta;
+        if (cart[name].qty <= 0) {
+            delete cart[name];
+            document.getElementById(`qty-${id}`).innerText = 0;
+        } else {
+            document.getElementById(`qty-${id}`).innerText = cart[name].qty;
+        }
+        updateCartBar();
+    }
+
+    function updateCartBar() {
+        const bar = document.getElementById('cart-bar');
+        let tQty = 0, tAmt = 0;
+        for (const i in cart) { tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); }
+        if (tQty > 0) {
+            bar.style.display = 'flex';
+            document.getElementById('total-qty').innerText = tQty;
+            document.getElementById('total-amt').innerText = '₹' + tAmt;
+        } else {
+            bar.style.display = 'none';
+        }
+    }
+
+    function sendToWhatsApp() {
+        let msg = "*New Order - Thakurmar Bari Cafe*%0A------------------------------%0A";
+        let total = 0;
+        for (const i in cart) {
+            msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`;
+            total += cart[i].qty * cart[i].price;
+        }
+        msg += `------------------------------%0A*Total Bill: ₹${total}*%0A%0APlease confirm my order.`;
+        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
+    }
+
+    renderMenu();
+</script>
+
+</body>
+</html>
+
