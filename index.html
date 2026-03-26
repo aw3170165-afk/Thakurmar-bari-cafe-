@@ -3,138 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thakurmar Bari Cafe | Zomato Style Menu</title>
+    <title>Thakurmar Bari Cafe | Digital Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Metropolis:wght@300;400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
     <style>
         :root {
             --z-red: #E23744;
+            --z-dark-red: #CB202D;
             --z-black: #1C1C1C;
             --z-gray: #696969;
             --z-border: #E8E8E8;
-            --bg: #F4F4F4;
+            --bg-premium: #F9F9FB; /* Soft Blue-Greyish White Background */
+            --card-shadow: 0 8px 16px rgba(0,0,0,0.04);
             --veg: #24963F;
             --nonveg: #E43B4F;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Metropolis', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        body { background-color: var(--bg); color: var(--z-black); scroll-behavior: smooth; }
+        body { background-color: var(--bg-premium); color: var(--z-black); scroll-behavior: smooth; }
 
-        /* --- Sticky Header --- */
+        /* --- Premium Sticky Header --- */
         header {
-            background: #fff;
-            padding: 20px 15px 10px;
+            background: linear-gradient(135deg, var(--z-red), var(--z-dark-red));
+            padding: 25px 15px 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(226, 55, 68, 0.2);
+            color: white;
+            border-radius: 0 0 20px 20px;
         }
 
-        .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--z-red); font-size: 1.6rem; text-align: center; }
-        header h1 { font-size: 1.1rem; text-align: center; font-weight: 700; margin-bottom: 5px; }
-        header p { font-size: 0.8rem; text-align: center; color: var(--z-gray); margin-bottom: 15px; }
+        .b-title { font-family: 'Hind Siliguri', sans-serif; color: #FFF; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        header h1 { font-size: 1.1rem; text-align: center; font-weight: 700; margin-bottom: 3px; color: #FFEBEE; }
+        header p { font-size: 0.8rem; text-align: center; color: #FFCDD2; margin-bottom: 15px; }
 
-        /* --- Category Filter (Horizontal Scroll) --- */
+        /* --- Category Filter --- */
         .cat-nav {
             display: flex;
             overflow-x: auto;
-            padding: 10px 0;
-            gap: 10px;
+            padding: 12px 0;
+            gap: 12px;
             white-space: nowrap;
+            background: transparent;
         }
         .cat-nav::-webkit-scrollbar { display: none; }
         .chip {
-            padding: 8px 16px;
-            border: 1px solid var(--z-border);
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            background: #fff;
-            color: #444;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
             cursor: pointer;
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
-        .chip.active { background: var(--z-red); color: #fff; border-color: var(--z-red); }
+        .chip.active { background: #fff; color: var(--z-red); border-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
         /* --- Menu Container --- */
-        .container { max-width: 700px; margin: 0 auto; padding: 15px; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px 15px; }
         
-        .cat-section { margin-bottom: 30px; }
-        .cat-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; padding-left: 5px; border-left: 4px solid var(--z-red); line-height: 1; }
+        .cat-section { margin-bottom: 35px; }
+        .cat-name { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            margin-bottom: 18px; 
+            color: var(--z-black); 
+            display: flex;
+            align-items: center;
+        }
+        .cat-name::after { content: ''; flex: 1; height: 1.5px; background: #E0E0E0; margin-left: 15px; border-radius: 2px; }
 
-        /* --- Zomato Item Card --- */
+        /* --- Premium Item Card --- */
         .item {
-            background: #fff;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.02);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: transform 0.2s;
         }
+        .item:active { transform: scale(0.98); }
 
         .info { flex: 1; padding-right: 15px; }
         
-        /* Veg/Non-Veg Badge */
-        .badge { width: 14px; height: 14px; border: 1.5px solid; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .badge { width: 15px; height: 15px; border: 1.5px solid; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; border-radius: 2px; }
         .badge::after { content: ''; width: 6px; height: 6px; border-radius: 50%; }
         .v { border-color: var(--veg); } .v::after { background: var(--veg); }
         .nv { border-color: var(--nonveg); } .nv::after { background: var(--nonveg); }
 
-        .name { font-size: 1rem; font-weight: 600; color: #111; margin-bottom: 2px; }
-        .price { font-weight: 700; font-size: 0.95rem; color: #333; }
+        .name { font-size: 1.05rem; font-weight: 600; color: #1C1C1C; margin-bottom: 4px; }
+        .price { font-weight: 700; font-size: 1rem; color: #444; }
 
-        /* --- Add/Qty Button --- */
-        .btn-box { position: relative; width: 90px; text-align: center; }
+        /* --- Modern Add/Qty Button --- */
+        .btn-box { position: relative; width: 100px; text-align: center; }
         
         .add-btn {
             background: #fff;
             color: var(--z-red);
             border: 1px solid var(--z-red);
-            padding: 6px 0;
-            border-radius: 8px;
+            padding: 8px 0;
+            border-radius: 10px;
             font-weight: 700;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(226, 55, 68, 0.1);
+            box-shadow: 0 4px 8px rgba(226, 55, 68, 0.1);
+            transition: 0.2s;
         }
 
         .qty-ctrl {
             display: none;
             background: var(--z-red);
             color: #fff;
-            border-radius: 8px;
-            padding: 6px 8px;
+            border-radius: 10px;
+            padding: 8px 10px;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(226, 55, 68, 0.3);
         }
-        .q-btn { background: none; border: none; color: #fff; font-size: 1.2rem; font-weight: bold; width: 25px; cursor: pointer; }
-        .q-num { font-weight: 700; font-size: 0.9rem; }
+        .q-btn { background: none; border: none; color: #fff; font-size: 1.3rem; font-weight: bold; width: 30px; cursor: pointer; }
+        .q-num { font-weight: 700; font-size: 1rem; }
 
-        /* --- Bottom Cart --- */
+        /* --- Sleek Bottom Cart Bar --- */
         .footer-cart {
             position: fixed;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background: #252525;
+            width: 92%;
+            max-width: 550px;
+            background: #1C1C1C;
             color: #fff;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 15px 22px;
+            border-radius: 16px;
             display: none;
             justify-content: space-between;
             align-items: center;
             z-index: 2000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
-        .f-text { font-size: 0.85rem; }
-        .f-text b { font-size: 1rem; }
-        .f-btn { background: var(--z-red); color: #fff; padding: 8px 15px; border-radius: 8px; font-weight: 700; border: none; font-size: 0.9rem; cursor: pointer; }
+        .f-text { font-size: 0.9rem; letter-spacing: 0.3px; }
+        .f-text b { font-size: 1.1rem; color: #FFF; }
+        .f-btn { background: var(--z-red); color: #fff; padding: 10px 20px; border-radius: 10px; font-weight: 700; border: none; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
+        .f-btn:active { background: var(--z-dark-red); }
 
+        @media (max-width: 480px) {
+            header h1 { font-size: 1rem; }
+            .container { padding: 15px 10px; }
+        }
     </style>
 </head>
 <body>
@@ -153,24 +175,28 @@
 
 <div class="footer-cart" id="cart-bar">
     <div class="f-text">
-        <span id="t-qty">0</span> Item | <b>₹<span id="t-amt">0</span></b>
+        <span id="t-qty">0</span> Item(s) added | <b>₹<span id="t-amt">0</span></b>
     </div>
-    <button class="f-btn" onclick="sendToWhatsApp()">Order on WhatsApp ➔</button>
+    <button class="f-btn" onclick="sendToWhatsApp()">View Order ➔</button>
 </div>
 
 <script>
     const menuData = {
-        "SPECIAL ⭐": [
-            {n: "Green Peas", p: 0, v: true}, {n: "Basa Fish Premium", p: 0, v: false},
-            {n: "Prawn", p: 0, v: false}, {n: "Amritsari Crab Claw", p: 0, v: false}, {n: "Veg Mayyanoise", p: 0, v: true}
-        ],
         "TEA & COFFEE ☕": [
             {n: "Milk Tea (Small)", p: 10, v: true}, {n: "Milk Tea (Large)", p: 20, v: true},
             {n: "Cold Coffee", p: 50, v: true}, {n: "Masala Tea", p: 10, v: true}, {n: "Black Coffee", p: 30, v: true}
         ],
+        "DRINK'S 🍹": [
+            {n: "Coconut Water Special", p: 80, v: true}, {n: "Plain Lassi", p: 18, v: true}, 
+            {n: "Badam Lassi", p: 30, v: true}, {n: "Mango Juice Special", p: 40, v: true}
+        ],
         "MAGGIE & BURGER 🍔": [
             {n: "Veg Maggie", p: 40, v: true}, {n: "Chicken Maggie", p: 50, v: false},
             {n: "Chicken Burger", p: 90, v: false}, {n: "Chicken Cheese Ball", p: 90, v: false}
+        ],
+        "SPECIAL ⭐": [
+            {n: "Green Peas", p: 0, v: true}, {n: "Basa Fish Premium", p: 0, v: false},
+            {n: "Prawn", p: 0, v: false}, {n: "Amritsari Crab Claw", p: 0, v: false}
         ],
         "MOMO'S 🥟": [
             {n: "Veg Momo (Steam)", p: 60, v: true}, {n: "Chicken Momo (Steam)", p: 70, v: false},
@@ -195,7 +221,7 @@
         let chips = '';
 
         for (const [cat, items] of Object.entries(menuData)) {
-            const catID = cat.replace(/[^a-zA-Z]/g, '');
+            const catID = cat.replace(/[^a-zA-Z0-9]/g, '');
             chips += `<div class="chip" onclick="go('${catID}', this)">${cat}</div>`;
             html += `<div class="cat-section" id="${catID}"><h2 class="cat-name">${cat}</h2>`;
             
@@ -225,6 +251,7 @@
         }
         container.innerHTML = html;
         nav.innerHTML = chips;
+        if(nav.firstChild) nav.firstChild.classList.add('active');
     }
 
     function up(name, price, d, id) {
@@ -263,13 +290,10 @@
     function go(id, el) {
         document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
-        const offset = 140; 
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = document.getElementById(id).getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        const offset = 160; 
+        const element = document.getElementById(id);
+        const topPos = element.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
     }
 
     function sendToWhatsApp() {
