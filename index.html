@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thakurmar Bari Cafe - Order Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+    <title>Thakurmar Bari Cafe - Digital Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-red: #8b0000;
             --accent-gold: #d4af37;
-            --bg-dark: #1a1a1a;
+            --bg-chalk: #1a1a1a; /* Chalkboard theme background */
             --card-bg: #ffffff;
             --text-main: #333;
         }
@@ -20,7 +20,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f4f1ea;
             color: var(--text-main);
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
         header {
@@ -29,120 +29,115 @@
             text-align: center;
             padding: 30px 15px;
             border-bottom: 5px solid var(--accent-gold);
-            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .bengali-font { font-family: 'Hind Siliguri', sans-serif; font-size: 1.4em; }
+        .bengali-font { font-family: 'Hind Siliguri', sans-serif; font-size: 1.6em; display: block; margin-bottom: 5px; }
 
-        header h1 { margin-bottom: 5px; font-weight: 700; }
-        header p { font-size: 0.9em; opacity: 0.9; letter-spacing: 1px; }
+        header h1 { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        header p { font-size: 0.9em; opacity: 0.9; margin-top: 10px; }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px 15px; }
 
         .category-title {
-            color: var(--primary-red);
-            border-left: 5px solid var(--accent-gold);
-            padding-left: 15px;
-            margin: 30px 0 20px;
-            font-size: 1.5rem;
+            color: white;
+            background: var(--primary-red);
+            display: inline-block;
+            padding: 8px 25px;
+            margin: 35px 0 20px;
+            font-size: 1.2rem;
             text-transform: uppercase;
-            background: white;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+            letter-spacing: 2px;
+            border-radius: 0 20px 20px 0;
+            border-left: 6px solid var(--accent-gold);
         }
 
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 15px;
         }
 
         .item-card {
             background: var(--card-bg);
-            padding: 18px;
-            border-radius: 12px;
+            padding: 15px 20px;
+            border-radius: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
         }
 
-        .item-details { flex: 1; }
-        .item-name { font-weight: 600; display: block; font-size: 1.05rem; margin-bottom: 4px; }
-        .item-price { color: var(--primary-red); font-weight: 700; }
+        .item-card:hover { transform: translateY(-3px); }
 
-        /* Quantity Controls */
+        .item-name { font-weight: 600; color: #222; font-size: 1rem; }
+        .item-price { color: var(--primary-red); font-weight: 700; display: block; margin-top: 2px; }
+
         .controls {
             display: flex;
             align-items: center;
-            background: #f8f8f8;
-            border-radius: 25px;
-            padding: 5px 12px;
-            border: 1px solid #ddd;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 4px;
         }
 
         .btn-qty {
             background: var(--primary-red);
             color: white;
             border: none;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
             font-size: 1.2rem;
-            line-height: 1;
         }
 
-        .qty-val { margin: 0 12px; font-weight: 700; min-width: 15px; text-align: center; }
+        .qty-val { margin: 0 12px; font-weight: 700; min-width: 20px; text-align: center; }
 
-        /* Sticky Footer Cart */
+        /* Bottom Cart Bar */
         .cart-bar {
             position: fixed;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 600px;
-            background: var(--primary-red);
+            max-width: 500px;
+            background: #222;
             color: white;
             padding: 15px 25px;
             border-radius: 50px;
             display: none;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
             z-index: 1000;
+            border: 2px solid var(--accent-gold);
         }
 
         .order-btn {
             background: var(--accent-gold);
             color: #000;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 25px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .order-btn:hover { background: #fff; }
-
         @media (max-width: 480px) {
-            header h1 { font-size: 1.8rem; }
             .items-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 class="bengali-font">ঠাকুরমার বাড়ি ক্যাফে</h1>
+    <span class="bengali-font">ঠাকুরমার বাড়ি ক্যাফে</span>
     <h1>Thakurmar Bari Cafe</h1>
-    <p>Kalyani Chadamari More | Call: 8335952010</p>
+    <p>📍 Kalyani Chadamari More | 📞 8335952010</p>
 </header>
 
 <div class="container" id="menu-container"></div>
@@ -151,38 +146,46 @@
     <div>
         <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
     </div>
-    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp</button>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order Now ➔</button>
 </div>
 
 <script>
     const menuData = {
-        "Tea & Coffee ☕": [
+        "SPECIAL ⭐": [
+            {n: "Green Peas", p: 40},
+            {n: "Basa Fish With Premium", p: 150},
+            {n: "Prawn", p: 180},
+            {n: "Gedre Amritsari Crab Claw", p: 250},
+            {n: "Veg Mayonnaise", p: 30}
+        ],
+        "TEA & COFFEE ☕": [
             {n: "Black Tea", p: 15}, {n: "Milk Tea (S)", p: 10}, {n: "Milk Tea (L)", p: 20},
             {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
             {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
         ],
-        "Drinks 🥤": [
-            {n: "Coconut Water Special", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
-            {n: "Masala Aam Pora Sharbat", p: 20}, {n: "Mango Juice Special", p: 40},
-            {n: "Special Orange Juice", p: 50}, {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
-        ],
-        "Maggie & Burger 🍔": [
+        "MAGGIE & BURGER 🍔": [
             {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
             {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
         ],
-        "Momo Specials 🥟": [
+        "MOMO'S 🥟": [
             {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
-            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99}
+            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99},
+            {n: "Pizza / Chicken Momo", p: 99}
         ],
-        "Snacks & Starters 🍟": [
-            {n: "French Fries", p: 70}, {n: "Peri Peri French Fries", p: 99},
+        "STATER'S & SNACKS 🍟": [
+            {n: "French Fries 🍟", p: 70}, {n: "Peri Peri French Fries", p: 99},
             {n: "Chicken Cheese Pizza", p: 120}, {n: "Chicken Nuggets (8pcs)", p: 99},
             {n: "Chicken Popcorn (16pcs)", p: 99}, {n: "Chicken Wings (3pcs)", p: 99},
             {n: "Chicken Finger (6pcs)", p: 99}
         ],
-        "Combos 🍱": [
-            {n: "Tea(2)+Fries+Momos Combo", p: 150},
-            {n: "Tea(5)+Fries+Momos Combo", p: 150}
+        "DRINK'S 🍷": [
+            {n: "Coconut Water Special", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
+            {n: "Masala Aam Pora Sharbat", p: 20}, {n: "Mango Juice Special", p: 40},
+            {n: "Special Orange Juice", p: 50}, {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
+        ],
+        "COMBO 🍱": [
+            {n: "Combo: Tea(2)+Fries+Momos", p: 150},
+            {n: "Combo: Tea(5)+Fries+Momos", p: 150}
         ]
     };
 
@@ -239,13 +242,13 @@
     }
 
     function sendToWhatsApp() {
-        let msg = "*New Order - Thakurmar Bari Cafe*%0A------------------------------%0A";
+        let msg = "*ORDER - THAKURMAR BARI CAFE*%0A------------------------------%0A";
         let total = 0;
         for (const i in cart) {
             msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`;
             total += cart[i].qty * cart[i].price;
         }
-        msg += `------------------------------%0A*Total Bill: ₹${total}*%0A%0APlease confirm my order.`;
+        msg += `------------------------------%0A*Total Bill: ₹${total}*%0A%0APlease confirm my order!`;
         window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
     }
 
@@ -254,4 +257,3 @@
 
 </body>
 </html>
-
