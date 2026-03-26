@@ -1,261 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thakurmar Bari Cafe - Digital Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-red: #8b0000;
-            --accent-gold: #d4af37;
-            --card-bg: #ffffff;
-            --text-main: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thakurmar Bari Cafe</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f1ea;
-            color: var(--text-main);
-            padding-bottom: 120px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-        header {
-            background-color: var(--primary-red);
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-            border-bottom: 5px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+<style>
+:root {
+    --primary:#8b0000;
+    --gold:#d4af37;
+}
 
-        .bengali-font { font-family: 'Hind Siliguri', sans-serif; font-size: 1.6em; display: block; margin-bottom: 5px; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        header h1 { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 1.5rem; }
-        header p { font-size: 0.85em; opacity: 0.9; margin-top: 10px; }
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f5f5;
+    padding-bottom:120px;
+}
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 10px 15px; }
+/* HEADER */
+header{
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(139,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5');
+    background-size:cover;
+    color:white;
+    text-align:center;
+    padding:40px 10px;
+}
 
-        .category-title {
-            color: white;
-            background: var(--primary-red);
-            display: inline-block;
-            padding: 8px 25px;
-            margin: 30px 0 15px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 0 20px 20px 0;
-            border-left: 6px solid var(--accent-gold);
-        }
+/* CATEGORY */
+.category-title{
+    background:var(--primary);
+    color:white;
+    padding:8px 20px;
+    margin:25px 0 10px;
+    border-radius:0 20px 20px 0;
+}
 
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 12px;
-        }
+/* GRID */
+.items-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:12px;
+}
 
-        .item-card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
+/* CARD */
+.item-card{
+    background:white;
+    border-radius:16px;
+    padding:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
 
-        .item-name { font-weight: 600; color: #222; font-size: 0.95rem; display: block; }
-        .item-price { color: var(--primary-red); font-weight: 700; font-size: 0.9rem; }
+.item-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 
-        .controls {
-            display: flex;
-            align-items: center;
-            background: #f1f1f1;
-            border-radius: 25px;
-            padding: 3px;
-        }
+.item-left{
+    display:flex;
+    align-items:center;
+}
 
-        .btn-qty {
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.item-img{
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    object-fit:cover;
+    margin-right:10px;
+}
 
-        .qty-val { margin: 0 10px; font-weight: 700; min-width: 18px; text-align: center; }
+.item-name{
+    font-weight:600;
+    font-size:14px;
+}
 
-        /* Cart Bar */
-        .cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%;
-            max-width: 500px;
-            background: #1a1a1a;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            z-index: 1000;
-            border: 1px solid var(--accent-gold);
-        }
+.item-price{
+    color:var(--primary);
+    font-weight:700;
+    font-size:13px;
+}
 
-        .order-btn {
-            background: var(--accent-gold);
-            color: #000;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
+/* BUTTON */
+.controls{
+    display:flex;
+    align-items:center;
+}
 
-        @media (max-width: 480px) {
-            .items-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+.btn{
+    background:var(--primary);
+    color:white;
+    border:none;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.qty{
+    margin:0 10px;
+}
+
+/* CART */
+.cart-bar{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:500px;
+    background:linear-gradient(135deg,#000,#333);
+    color:white;
+    padding:12px;
+    border-radius:50px;
+    display:none;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid var(--gold);
+}
+
+.order-btn{
+    background:var(--gold);
+    border:none;
+    padding:10px 15px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:50%;
+    text-decoration:none;
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
-    <span class="bengali-font">ঠাকুরমার বাড়ি ক্যাফে</span>
-    <h1>Thakurmar Bari Cafe</h1>
-    <p>📍 Kalyani Chadamari More | 📞 8335952010</p>
+<h1>Thakurmar Bari Cafe</h1>
+<p>Kalyani | Order on WhatsApp</p>
 </header>
 
-<div class="container" id="menu-container"></div>
+<div id="menu"></div>
 
-<div class="cart-bar" id="cart-bar">
-    <div>
-        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
-    </div>
-    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp ➔</button>
+<div class="cart-bar" id="cart">
+<span id="summary">0 items | ₹0</span>
+<button class="order-btn" onclick="order()">Order</button>
 </div>
 
+<a href="https://wa.me/918335952010" class="whatsapp">💬</a>
+
 <script>
-    const menuData = {
-        "TEA & COFFEE ☕": [
-            {n: "Black Tea", p: 15}, {n: "Milk Tea (Small)", p: 10}, {n: "Milk Tea (Large)", p: 20},
-            {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
-            {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
-        ],
-        "DRINK'S 🍷": [
-            {n: "Coconut Water Special", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
-            {n: "Masala Aam Pora Sharbat", p: 20}, {n: "Mango Juice Special", p: 40},
-            {n: "Special Orange Juice", p: 50}, {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
-        ],
-        "MAGGIE & BURGER 🍔": [
-            {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
-            {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
-        ],
-        "SPECIAL ⭐": [
-            {n: "Green Peas", p: 0}, {n: "Basa Fish With Premium", p: 0},
-            {n: "Prawn", p: 0}, {n: "Gedre Amritsari Crab Claw", p: 0}, {n: "Veg Mayyanoise", p: 0}
-        ],
-        "STATER'S 🍟": [
-            {n: "French Fries", p: 70}, {n: "Peri Peri French fries", p: 99},
-            {n: "Chicken Cheese Pizza", p: 120}, {n: "Chicken Nuggets (8ps)", p: 99},
-            {n: "Chicken Popcorn (16ps)", p: 99}, {n: "Chicken Wings (3ps)", p: 99},
-            {n: "Chicken Finger (6ps)", p: 99}
-        ],
-        "MOMO'S 🥟": [
-            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
-            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99},
-            {n: "Pizza / Chicken", p: 99}
-        ],
-        "COMBO 🍱": [
-            {n: "Combo: Tea(2)+French Fries+Momos", p: 150},
-            {n: "Combo: Tea(5)+French Fries+Momos", p: 150}
-        ]
-    };
 
-    let cart = {};
+const menuData = {
 
-    function renderMenu() {
-        const container = document.getElementById('menu-container');
-        let html = '';
-        for (const [cat, items] of Object.entries(menuData)) {
-            html += `<h2 class="category-title">${cat}</h2><div class="items-grid">`;
-            items.forEach(item => {
-                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                // Special handling for 0 price items
-                const displayPrice = item.p === 0 ? "Ask Price" : "₹" + item.p;
-                
-                html += `
-                <div class="item-card">
-                    <div class="item-details">
-                        <span class="item-name">${item.n}</span>
-                        <span class="item-price">${displayPrice}</span>
-                    </div>
-                    <div class="controls">
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">-</button>
-                        <span class="qty-val" id="qty-${id}">0</span>
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button>
-                    </div>
-                </div>`;
-            });
-            html += `</div>`;
-        }
-        container.innerHTML = html;
-    }
+"Tea & Coffee":[
+{n:"Black Tea",p:15,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
+{n:"Milk Tea Small",p:10,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
+{n:"Milk Tea Large",p:20,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
+{n:"Masala Tea",p:10,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
+{n:"Cold Coffee",p:50,img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735"}
+],
 
-    function updateQty(name, price, delta, id) {
-        if (!cart[name]) cart[name] = { qty: 0, price: price };
-        cart[name].qty += delta;
-        if (cart[name].qty <= 0) {
-            delete cart[name];
-            document.getElementById(`qty-${id}`).innerText = 0;
-        } else {
-            document.getElementById(`qty-${id}`).innerText = cart[name].qty;
-        }
-        updateCartBar();
-    }
+"Drinks":[
+{n:"Coconut Water Special",p:80,img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"},
+{n:"Plain Lassi",p:18,img:"https://images.unsplash.com/photo-1626201850129-a96d7d4f2d63"},
+{n:"Mango Juice",p:40,img:"https://images.unsplash.com/photo-1571689936114-b16146cc08aa"}
+],
 
-    function updateCartBar() {
-        const bar = document.getElementById('cart-bar');
-        let tQty = 0, tAmt = 0;
-        for (const i in cart) { 
-            tQty += cart[i].qty; 
-            tAmt += (cart[i].qty * cart[i].price); 
-        }
-        if (tQty > 0) {
-            bar.style.display = 'flex';
-            document.getElementById('total-qty').innerText = tQty;
-            document.getElementById('total-amt').innerText = '₹' + tAmt;
-        } else {
-            bar.style.display = 'none';
-        }
-    }
+"Fast Food":[
+{n:"Veg Maggie",p:40,img:"https://images.unsplash.com/photo-1604908176997-4311d3cfdf5c"},
+{n:"Chicken Maggie",p:50,img:"https://images.unsplash.com/photo-1604908176997-4311d3cfdf5c"},
+{n:"Chicken Burger",p:90,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd"}
+],
 
-    function sendToWhatsApp() {
-        let msg = "*NEW ORDER - THAKURMAR BARI CAFE*%0A------------------------------%0A";
-        let total = 0;
-        for (const i in cart) {
-            const priceText = cart[i].price === 0 ? "(Price TBD)" : `₹${cart[i].qty * cart[i].price}`;
-            msg += `• *${i}* x ${cart[i].qty} = ${priceText}%0A`;
-            total += cart[i].qty * cart[i].price;
-        }
-        msg += `------------------------------%0A*Current Total: ₹${total}*%0A%0A_Note: Please confirm prices for 'Ask Price' items._%0A%0APlease confirm my order!`;
-        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
-    }
+"Starters":[
+{n:"French Fries",p:70,img:"https://images.unsplash.com/photo-1541592106381-b31e9677c0e5"},
+{n:"Peri Peri Fries",p:99,img:"https://images.unsplash.com/photo-1541592106381-b31e9677c0e5"},
+{n:"Chicken Nuggets",p:99,img:"https://images.unsplash.com/photo-1604908176997-4311d3cfdf5c"}
+],
 
-    renderMenu();
+"Momos":[
+{n:"Veg Momo Steam",p:60,img:"https://images.unsplash.com/photo-1604908176997-4311d3cfdf5c"},
+{n:"Chicken Momo Steam",p:70,img:"https://images.unsplash.com/photo-1604908176997-4311d3cfdf5c"}
+],
+
+"Combo":[
+{n:"Tea+Fries+Momos",p:150,img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c"}
+]
+
+};
+
+let cart={};
+
+function render(){
+let html="";
+for(let cat in menuData){
+html+=`<h2 class="category-title">${cat}</h2><div class="items-grid">`;
+
+menuData[cat].forEach(item=>{
+let id=item.n.replace(/\s/g,"");
+
+html+=`
+<div class="item-card">
+<div class="item-left">
+<img src="${item.img}" class="item-img">
+<div>
+<div class="item-name">${item.n}</div>
+<div class="item-price">₹${item.p}</div>
+</div>
+</div>
+
+<div class="controls">
+<button class="btn" onclick="update('${item.n}',${item.p},-1,'${id}')">-</button>
+<span class="qty" id="${id}">0</span>
+<button class="btn" onclick="update('${item.n}',${item.p},1,'${id}')">+</button>
+</div>
+</div>`;
+});
+
+html+="</div>";
+}
+document.getElementById("menu").innerHTML=html;
+}
+
+function update(name,price,delta,id){
+if(!cart[name]) cart[name]={qty:0,price:price};
+
+cart[name].qty+=delta;
+
+if(cart[name].qty<=0){
+delete cart[name];
+document.getElementById(id).innerText=0;
+}else{
+document.getElementById(id).innerText=cart[name].qty;
+}
+
+updateCart();
+}
+
+function updateCart(){
+let qty=0,total=0;
+
+for(let i in cart){
+qty+=cart[i].qty;
+total+=cart[i].qty*cart[i].price;
+}
+
+if(qty>0){
+document.getElementById("cart").style.display="flex";
+document.getElementById("summary").innerText=qty+" items | ₹"+total;
+}else{
+document.getElementById("cart").style.display="none";
+}
+}
+
+function order(){
+let msg="ORDER:%0A";
+for(let i in cart){
+msg+=i+" x "+cart[i].qty+"%0A";
+}
+window.open("https://wa.me/918335952010?text="+msg);
+}
+
+render();
+
 </script>
+
 </body>
 </html>
