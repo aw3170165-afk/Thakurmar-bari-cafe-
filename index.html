@@ -1,231 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thakurmar Bari Cafe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thakurmar Bari Cafe | Order Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Metropolis:wght@300;400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --zomato-red: #E23744;
+            --zomato-black: #1C1C1C;
+            --zomato-gray: #696969;
+            --bg-light: #F8F8F8;
+            --white: #FFFFFF;
+            --veg-green: #24963F;
+            --non-veg-red: #E43B4F;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Metropolis', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--zomato-black);
+            padding-bottom: 100px;
+        }
 
-<style>
+        /* --- Header Section --- */
+        header {
+            background: var(--white);
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-body{margin:0;font-family:'Poppins',sans-serif;background:#f5f5f5}
+        .bengali-title { font-family: 'Hind Siliguri', sans-serif; color: var(--zomato-red); font-size: 1.5rem; }
+        header h1 { font-size: 1.2rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px; }
+        header p { font-size: 0.8rem; color: var(--zomato-gray); margin-top: 4px; }
 
-/* HEADER */
-header{
-background:linear-gradient(rgba(0,0,0,0.5),rgba(139,0,0,0.9));
-color:white;text-align:center;padding:25px;
-}
-.bengali{font-family:'Hind Siliguri';font-size:22px}
+        /* --- Search Bar --- */
+        .search-container { padding: 15px; background: var(--white); }
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #E8E8E8;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            font-size: 0.9rem;
+            outline: none;
+        }
 
-/* SEARCH */
-.search{padding:10px;position:sticky;top:0;background:white;z-index:999}
-.search input{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd}
+        /* --- Category Quick Filter --- */
+        .category-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 15px;
+            background: var(--white);
+            gap: 10px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .category-scroll::-webkit-scrollbar { display: none; }
+        .cat-chip {
+            white-space: nowrap;
+            padding: 8px 15px;
+            border: 1px solid #E8E8E8;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--white);
+            cursor: pointer;
+        }
+        .cat-chip.active { background: var(--zomato-red); color: var(--white); border-color: var(--zomato-red); }
 
-/* TABS */
-.tabs{display:flex;overflow:auto;gap:10px;padding:10px;background:white;position:sticky;top:60px}
-.tab{padding:8px 15px;background:#eee;border-radius:20px;cursor:pointer}
-.tab.active{background:#8b0000;color:white}
+        /* --- Menu Layout --- */
+        .container { max-width: 800px; margin: 0 auto; padding: 10px; }
+        
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 25px 5px 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #EEE;
+            margin-left: 15px;
+        }
 
-/* CARD */
-.card{background:white;margin:10px;padding:10px;border-radius:15px;
-display:flex;justify-content:space-between;align-items:center;
-box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+        /* --- Zomato Style Card --- */
+        .item-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
 
-.left{display:flex;align-items:center}
-img{width:60px;height:60px;border-radius:10px;margin-right:10px}
+        .item-info { flex: 1; padding-right: 15px; }
+        
+        /* Veg/Non-Veg Icon */
+        .type-icon {
+            width: 14px;
+            height: 14px;
+            border: 1.5px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .type-icon::after { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+        .veg { border-color: var(--veg-green); } .veg::after { background: var(--veg-green); }
+        .non-veg { border-color: var(--non-veg-red); } .non-veg::after { background: var(--non-veg-red); }
 
-.name{font-weight:600}
-.price{color:#8b0000;font-weight:bold}
+        .item-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: #333; }
+        .item-price { font-weight: 600; font-size: 0.95rem; color: #444; }
 
-.badge{background:gold;font-size:10px;padding:2px 6px;border-radius:8px;margin-left:5px}
+        /* --- Add Button Logic --- */
+        .action-area { position: relative; width: 100px; display: flex; flex-direction: column; align-items: center; }
+        
+        .add-btn {
+            background: #FFF5F6;
+            color: var(--zomato-red);
+            border: 1px solid var(--zomato-red);
+            padding: 8px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: 0.2s;
+        }
 
-/* BUTTON */
-.btn{background:#8b0000;color:white;border:none;width:28px;height:28px;border-radius:50%}
-.qty{margin:0 8px}
+        .qty-controls {
+            display: none; /* Hidden by default */
+            background: var(--zomato-red);
+            color: var(--white);
+            border-radius: 8px;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+        }
 
-/* CART */
-.cart{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-background:black;color:white;padding:12px 20px;border-radius:50px;
-display:none;width:90%;max-width:500px;justify-content:space-between}
+        .btn-math { background: none; border: none; color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer; width: 25px; }
+        .qty-num { font-weight: 700; font-size: 0.9rem; }
 
-.order{background:gold;border:none;padding:8px 15px;border-radius:20px}
+        /* --- Floating Cart Bar --- */
+        .cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 500px;
+            background: var(--zomato-red);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(226, 55, 68, 0.4);
+            z-index: 2000;
+        }
 
-</style>
+        .cart-text { font-size: 0.9rem; font-weight: 600; }
+        .view-cart { font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-<div class="bengali">ঠাকুরমার বাড়ি ক্যাফে</div>
-<h2>Thakurmar Bari Cafe</h2>
-<p>Kalyani | 📞 8335952010</p>
+    <div class="bengali-title">ঠাকুরমার বাড়ি ক্যাফে</div>
+    <h1>Thakurmar Bari Cafe</h1>
+    <p>Kalyani Chadamari More | 📞 8335952010</p>
 </header>
 
-<div class="search">
-<input type="text" placeholder="Search food..." onkeyup="searchItem(this.value)">
+<div class="search-container">
+    <input type="text" class="search-box" placeholder="Search for dishes..." onkeyup="filterMenu()">
 </div>
 
-<div class="tabs" id="tabs"></div>
-<div id="menu"></div>
+<div class="category-scroll" id="cat-scroll">
+    </div>
 
-<div class="cart" id="cart">
-<span id="total">0 items | ₹0</span>
-<button class="order" onclick="order()">Order</button>
+<div class="container" id="menu-container">
+    </div>
+
+<div class="cart-bar" id="cart-bar" onclick="sendToWhatsApp()">
+    <div class="cart-text">
+        <span id="total-qty">0</span> Item | ₹<span id="total-amt">0</span>
+    </div>
+    <div class="view-cart">Order via WhatsApp ➔</div>
 </div>
 
 <script>
+    const menuData = {
+        "SPECIAL ⭐": [
+            {n: "Green Peas", p: 0, v: true}, {n: "Basa Fish With Premium", p: 0, v: false},
+            {n: "Prawn", p: 0, v: false}, {n: "Gedre Amritsari Crab Claw", p: 0, v: false}, {n: "Veg Mayyanoise", p: 0, v: true}
+        ],
+        "TEA & COFFEE ☕": [
+            {n: "Black Tea", p: 15, v: true}, {n: "Milk Tea (Small)", p: 10, v: true}, {n: "Milk Tea (Large)", p: 20, v: true},
+            {n: "Masala Tea", p: 10, v: true}, {n: "Lemon Tea", p: 20, v: true}, {n: "Green Tea", p: 30, v: true},
+            {n: "Cold Coffee", p: 50, v: true}, {n: "Black Coffee", p: 30, v: true}
+        ],
+        "DRINK'S 🍹": [
+            {n: "Coconut Water Special", p: 80, v: true}, {n: "Plain Lassi", p: 18, v: true}, {n: "Badam Lassi", p: 30, v: true},
+            {n: "Masala Aam Pora Sharbat", p: 20, v: true}, {n: "Mango Juice Special", p: 40, v: true},
+            {n: "Special Orange Juice", p: 50, v: true}, {n: "Masala Cold Drink", p: 30, v: true}, {n: "Masala Soda", p: 25, v: true}
+        ],
+        "MAGGIE & BURGER 🍔": [
+            {n: "Veg Maggie", p: 40, v: true}, {n: "Chicken Maggie", p: 50, v: false}, {n: "Chicken Drumsticks", p: 60, v: false},
+            {n: "Chicken Burger", p: 90, v: false}, {n: "Chicken Breast Strips", p: 90, v: false}, {n: "Chicken Cheese Ball", p: 90, v: false}
+        ],
+        "STATER'S 🍟": [
+            {n: "French Fries", p: 70, v: true}, {n: "Peri Peri French fries", p: 99, v: true},
+            {n: "Chicken Cheese Pizza", p: 120, v: false}, {n: "Chicken Nuggets (8ps)", p: 99, v: false},
+            {n: "Chicken Popcorn (16ps)", p: 99, v: false}, {n: "Chicken Wings (3ps)", p: 99, v: false},
+            {n: "Chicken Finger (6ps)", p: 99, v: false}
+        ],
+        "MOMO'S 🥟": [
+            {n: "Veg Momo (Steam)", p: 60, v: true}, {n: "Veg Momo (Fry)", p: 70, v: true}, {n: "Veg Momo (Pan)", p: 99, v: true},
+            {n: "Chicken Momo (Steam)", p: 70, v: false}, {n: "Chicken Momo (Fry)", p: 80, v: false}, {n: "Chicken Momo (Pan)", p: 99, v: false},
+            {n: "Pizza / Chicken", p: 99, v: false}
+        ]
+    };
 
-const img="https://via.placeholder.com/60";
+    let cart = {};
 
-/* FULL EXACT MENU */
-const menuData={
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        const scroll = document.getElementById('cat-scroll');
+        let html = '';
+        let chips = '';
 
-"TEA & COFFEE ☕":[
-{n:"Black Tea",p:15},{n:"Milk Tea (Small)",p:10},{n:"Milk Tea (Large)",p:20},
-{n:"Masala Tea",p:10},{n:"Lemon Tea",p:20},{n:"Green Tea",p:30},
-{n:"Cold Coffee",p:50},{n:"Black Coffee",p:30}
-],
+        for (const [cat, items] of Object.entries(menuData)) {
+            chips += `<div class="cat-chip" onclick="scrollToCat('${cat}')">${cat}</div>`;
+            html += `<div id="${cat}"><h2 class="section-header">${cat}</h2>`;
+            
+            items.forEach(item => {
+                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
+                const typeClass = item.v ? 'veg' : 'non-veg';
+                const displayP = item.p === 0 ? "Ask Price" : "₹" + item.p;
+                
+                html += `
+                <div class="item-card" data-name="${item.n.toLowerCase()}">
+                    <div class="item-info">
+                        <div class="type-icon ${typeClass}"></div>
+                        <div class="item-name">${item.n}</div>
+                        <div class="item-price">${displayP}</div>
+                    </div>
+                    <div class="action-area">
+                        <button class="add-btn" id="add-${id}" onclick="updateQty('${item.n}',${item.p},1,'${id}')">ADD</button>
+                        <div class="qty-controls" id="ctrl-${id}">
+                            <button class="btn-math" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">−</button>
+                            <span class="qty-num" id="qty-${id}">0</span>
+                            <button class="btn-math" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+        }
+        container.innerHTML = html;
+        scroll.innerHTML = chips;
+    }
 
-"DRINK'S 🍷":[
-{n:"Coconut Water Special",p:80},{n:"Plain Lassi",p:18},
-{n:"Badam Lassi",p:30},{n:"Masala Aam Pora Sharbat",p:20},
-{n:"Mango Juice Special",p:40},{n:"Special Orange Juice",p:50},
-{n:"Masala Cold Drink",p:30},{n:"Masala Soda",p:25}
-],
+    function updateQty(name, price, delta, id) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price };
+        cart[name].qty += delta;
 
-"MAGGIE & BURGER 🍔":[
-{n:"Veg Maggie",p:40},{n:"Chicken Maggie",p:50},{n:"Chicken Drumsticks",p:60},
-{n:"Chicken Burger",p:90,tag:"best"},{n:"Chicken Breast Strips",p:90},
-{n:"Chicken Cheese Ball",p:90}
-],
+        const addBtn = document.getElementById(`add-${id}`);
+        const ctrl = document.getElementById(`ctrl-${id}`);
+        const qtyText = document.getElementById(`qty-${id}`);
 
-"⭐ SPECIAL":[
-{n:"Green Peas",p:0},{n:"Basa Fish With Premium",p:0},
-{n:"Prawn",p:0},{n:"Gedre Amritsari Crab Claw",p:0},
-{n:"Veg Mayonnaise",p:0}
-],
+        if (cart[name].qty <= 0) {
+            delete cart[name];
+            addBtn.style.display = 'block';
+            ctrl.style.display = 'none';
+        } else {
+            addBtn.style.display = 'none';
+            ctrl.style.display = 'flex';
+            qtyText.innerText = cart[name].qty;
+        }
+        updateCartBar();
+    }
 
-"STATER'S 🍟":[
-{n:"French Fries",p:70,tag:"best"},{n:"Peri Peri French fries",p:99},
-{n:"Chicken Cheese Pizza",p:120},{n:"Chicken Nuggets (8ps)",p:99},
-{n:"Chicken Popcorn (16ps)",p:99},{n:"Chicken Wings (3ps)",p:99},
-{n:"Chicken Finger (6ps)",p:99}
-],
+    function updateCartBar() {
+        const bar = document.getElementById('cart-bar');
+        let tQty = 0, tAmt = 0;
+        for (const i in cart) { tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); }
+        if (tQty > 0) {
+            bar.style.display = 'flex';
+            document.getElementById('total-qty').innerText = tQty;
+            document.getElementById('total-amt').innerText = tAmt;
+        } else {
+            bar.style.display = 'none';
+        }
+    }
 
-"MOMO'S 🥟":[
-{n:"Veg Momo (Steam)",p:60},{n:"Veg Momo (Fry)",p:70},
-{n:"Veg Momo (Pan)",p:99},{n:"Chicken Momo (Steam)",p:70},
-{n:"Chicken Momo (Fry)",p:80},{n:"Chicken Momo (Pan)",p:99},
-{n:"Pizza / Chicken",p:99}
-],
+    function filterMenu() {
+        const q = document.querySelector('.search-box').value.toLowerCase();
+        document.querySelectorAll('.item-card').forEach(card => {
+            card.style.display = card.dataset.name.includes(q) ? 'flex' : 'none';
+        });
+    }
 
-"COMBO 🍱":[
-{n:"Combo: Tea(2)+French Fries+Momos",p:150,tag:"best"},
-{n:"Combo: Tea(5)+French Fries+Momos",p:150}
-]
+    function scrollToCat(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-};
+    function sendToWhatsApp() {
+        let msg = "*ORDER - THAKURMAR BARI CAFE*%0A------------------------------%0A";
+        let total = 0;
+        for (const i in cart) {
+            msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`;
+            total += cart[i].qty * cart[i].price;
+        }
+        msg += `------------------------------%0A*Total Bill: ₹${total}*%0A%0APlease confirm my order!`;
+        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
+    }
 
-let cart={};
-
-/* TABS */
-function renderTabs(){
-let t="";
-for(let c in menuData){
-t+=`<div class="tab" onclick="scrollToCat('${c}')">${c}</div>`;
-}
-tabs.innerHTML=t;
-}
-
-/* MENU */
-function renderMenu(filter=""){
-let html="";
-for(let cat in menuData){
-
-html+=`<h3 id="${cat}">${cat}</h3>`;
-
-menuData[cat].forEach(item=>{
-
-if(item.n.toLowerCase().includes(filter.toLowerCase())){
-
-html+=`
-<div class="card">
-<div class="left">
-<img src="${img}">
-<div>
-<div class="name">${item.n} ${item.tag?"<span class='badge'>🔥 Bestseller</span>":""}</div>
-<div class="price">${item.p==0?"Ask Price":"₹"+item.p}</div>
-</div>
-</div>
-
-<div>
-<button class="btn" onclick="update('${item.n}',${item.p},-1)">-</button>
-<span class="qty" id="${item.n}">0</span>
-<button class="btn" onclick="update('${item.n}',${item.p},1)">+</button>
-</div>
-</div>`;
-}
-});
-
-}
-menu.innerHTML=html;
-}
-
-/* SEARCH */
-function searchItem(val){
-renderMenu(val);
-}
-
-/* SCROLL */
-function scrollToCat(id){
-document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
-
-/* CART */
-function update(name,price,d){
-if(!cart[name]) cart[name]={qty:0,price:price};
-
-cart[name].qty+=d;
-
-if(cart[name].qty<=0){
-delete cart[name];
-document.getElementById(name).innerText=0;
-}else{
-document.getElementById(name).innerText=cart[name].qty;
-}
-
-updateCart();
-}
-
-function updateCart(){
-let q=0,t=0;
-for(let i in cart){
-q+=cart[i].qty;
-t+=cart[i].qty*cart[i].price;
-}
-
-if(q>0){
-cart.style.display="flex";
-total.innerText=q+" items | ₹"+t;
-}else{
-cart.style.display="none";
-}
-}
-
-/* ORDER */
-function order(){
-let msg="*NEW ORDER*%0A";
-for(let i in cart){
-msg+=i+" x "+cart[i].qty+"%0A";
-}
-window.open("https://wa.me/918335952010?text="+msg);
-}
-
-renderTabs();
-renderMenu();
-
+    renderMenu();
 </script>
-
 </body>
 </html>
