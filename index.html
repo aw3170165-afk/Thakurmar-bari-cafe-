@@ -27,7 +27,10 @@
         .icon-box { width: 70px; height: 70px; background: #FFF5F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--brand-red); font-size: 30px; }
         .premium-modal h2 { font-size: 1.4rem; color: #1c1c1c; margin-bottom: 12px; font-weight: 700; }
         .premium-modal p { font-size: 0.95rem; color: #666; margin-bottom: 30px; line-height: 1.5; }
-        .renew-btn { background: #25D366; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: 700; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); }
+        
+        /* NEW UPI BUTTON STYLE */
+        .renew-btn { background: #673ab7; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: 700; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(103, 58, 183, 0.3); }
+        
         .admin-trigger { margin-top: 15px; font-size: 0.8rem; color: #999; cursor: pointer; text-decoration: underline; }
         #unlock-form { display: none; margin-top: 15px; }
         .key-input { width: 100%; padding: 12px; border: 1.5px solid #EEE; border-radius: 10px; margin-bottom: 10px; text-align: center; outline: none; }
@@ -35,7 +38,7 @@
 
         /* --- ORIGINAL MENU CSS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-cream); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; overflow: hidden; } /* Hidden scroll while locked */
+        body { background-color: var(--bg-cream); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; overflow: hidden; } 
 
         header { background: #fff; padding: 20px 15px; position: sticky; top: 0; z-index: 1000; text-align: center; border-bottom: 4px solid var(--brand-yellow); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--brand-red); font-size: 1.8rem; }
@@ -46,7 +49,7 @@
         .chip { padding: 8px 18px; border: 2px solid var(--brand-yellow); border-radius: 25px; font-size: 0.8rem; font-weight: 700; background: #FFF9C4; color: var(--brand-red); white-space: nowrap; cursor: pointer; }
         .chip.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
 
-        .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.1; pointer-events: none; } /* Locked visuals */
+        .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.1; pointer-events: none; } 
         .cat-section { margin-bottom: 30px; }
         .cat-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--brand-red); border-bottom: 2px solid var(--brand-yellow); display: inline-block; }
 
@@ -71,7 +74,9 @@
         <div class="icon-box">🔒</div>
         <h2>License Suspended</h2>
         <p>Aapka digital menu service period expire ho gaya hai. Please renewal fee (₹500) pay karein taaki service resume ki ja sake.</p>
-        <a href="https://wa.me/918100565299?text=I want to pay ₹500 to unlock my digital menu" class="renew-btn">Pay ₹500 via WhatsApp</a>
+        
+        <a href="upi://pay?pa=8100565299@ybl&pn=Abhay%20Basfore&am=500&cu=INR" class="renew-btn">Pay ₹500 via PhonePe / UPI</a>
+        
         <div class="admin-trigger" onclick="showUnlock()">Admin Activation</div>
         <div id="unlock-form">
             <input type="password" id="pass-key" class="key-input" placeholder="Activation Key">
@@ -94,11 +99,10 @@
 </div>
 
 <script>
-    // --- LOCK SCRIPT ---
     function showUnlock() { document.getElementById('unlock-form').style.display = 'block'; }
     function validate() {
         if(document.getElementById('pass-key').value === "Abhay500") {
-            localStorage.setItem('menu_locked_v1', 'unlocked'); // Unique Key
+            localStorage.setItem('menu_locked_v1', 'unlocked'); 
             unlockNow();
         } else { alert("Galat Code! Payment karein."); }
     }
@@ -108,10 +112,8 @@
         document.querySelector('.container').style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
     }
-    // Auto-unlock if already paid
     if(localStorage.getItem('menu_locked_v1') === 'unlocked') { window.onload = unlockNow; }
 
-    // --- MENU DATA ---
     const menuData = {
         "NEW SNACKS 🍟": [
             {n: "Chicken Popcorn (12pc)", p: 79}, {n: "Chicken Wings (4pc)", p: 139}, {n: "Chicken Strips (5pc)", p: 259}, {n: "Peri Peri Chicken Fingers (5pc)", p: 99}, {n: "Chicken Samosa (6pc)", p: 135}, {n: "Chicken Kiev (8pc)", p: 99}, {n: "Chicken Spring Roll (5pc)", p: 120}, {n: "Crunchy Chicken Nugget (1pc)", p: 25}, {n: "Spicy Chicken Wings (2pc)", p: 75}, {n: "Fish Fingers (5pc)", p: 130}, {n: "Cheese Corn Triangles (10pc)", p: 99}, {n: "Fish Fry (2pc)", p: 75}
