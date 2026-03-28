@@ -13,58 +13,57 @@
             --text-dark: #3E2723;
         }
 
-        /* --- LOCK SCREEN (Pura Active) --- */
+        /* --- STRICT LOCK SCREEN --- */
         #admin-lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
-            z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;
         }
         .premium-modal {
             background: white; width: 100%; max-width: 400px; padding: 40px 30px;
-            border-radius: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 2px solid var(--brand-yellow);
         }
         .renew-btn { background: #4285F4; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: 700; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3); cursor: pointer; }
         
         #unlock-form { display: none; margin-top: 15px; }
-        .key-input { width: 100%; padding: 12px; border: 1.5px solid #EEE; border-radius: 10px; margin-bottom: 10px; text-align: center; outline: none; }
+        .key-input { width: 100%; padding: 12px; border: 1.5px solid #DDD; border-radius: 10px; margin-bottom: 10px; text-align: center; outline: none; }
         .submit-key { background: #1c1c1c; color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
 
-        /* --- MENU CSS --- */
+        /* --- MENU DESIGN --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-light-yellow); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; overflow: hidden; } 
+        body { background-color: var(--bg-light-yellow); color: var(--text-dark); overflow: hidden; } 
 
-        header { background: #fff; padding: 20px 15px; position: sticky; top: 0; z-index: 1000; text-align: center; border-bottom: 4px solid var(--brand-yellow); }
+        header { background: #fff; padding: 20px 15px; text-align: center; border-bottom: 4px solid var(--brand-yellow); }
         .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--brand-red); font-size: 1.8rem; }
         
         .cat-nav { display: flex; overflow-x: auto; padding: 12px 10px; gap: 10px; background: #fff; }
+        .cat-nav::-webkit-scrollbar { display: none; }
         .chip { padding: 8px 18px; border: 2px solid var(--brand-yellow); border-radius: 25px; font-size: 0.8rem; font-weight: 700; background: #FFF9C4; color: var(--brand-red); white-space: nowrap; }
 
-        .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.1; pointer-events: none; } 
+        .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.05; pointer-events: none; filter: blur(8px); } 
         .cat-section { margin-bottom: 30px; }
         .cat-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--brand-red); border-bottom: 2px solid var(--brand-yellow); display: inline-block; }
 
         .item { background: #fff; border-radius: 15px; padding: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .price { font-weight: 700; color: var(--brand-red); }
         .add-btn { background: var(--brand-yellow); color: var(--brand-red); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; box-shadow: 0 4px 0 #FBC02D; }
-
-        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--brand-red); color: #fff; padding: 16px 20px; border-radius: 15px; display: none; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
 
 <div id="admin-lock-screen">
     <div class="premium-modal">
-        <div style="font-size: 40px; margin-bottom: 15px;">🔒</div>
+        <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
         <h2>License Suspended</h2>
-        <p>Aapka digital menu service period expire ho gaya hai. Please renewal fee (₹500) pay karein taaki service resume ki ja sake.</p>
+        <p style="color:#666; margin-bottom:25px;">Service period expire ho gaya hai. Kripya ₹500 renewal fee pay karein.</p>
         
-        <a href="upi://pay?pa=8100565299@axl&pn=Abhay%20Basfore&am=500&cu=INR&mode=02&purpose=00&tn=Menu%20Activation" class="renew-btn">Pay ₹500 via Google Pay / UPI</a>
+        <a href="upi://pay?pa=8100565299@axl&pn=Abhay%20Basfore&am=500&cu=INR&tn=Menu%20Activation" class="renew-btn">Pay ₹500 via Google Pay / UPI</a>
         
         <div style="margin-top: 15px; font-size: 0.8rem; color: #999; cursor: pointer; text-decoration: underline;" onclick="document.getElementById('unlock-form').style.display='block'">Admin Activation</div>
         <div id="unlock-form">
-            <input type="password" id="pass-key" class="key-input" placeholder="Activation Key">
-            <button class="submit-key" onclick="validate()">Unlock Website</button>
+            <input type="password" id="pass-key" class="key-input" placeholder="Enter Activation Key">
+            <button class="submit-key" onclick="validate()">Unlock Now</button>
         </div>
     </div>
 </div>
@@ -77,34 +76,26 @@
 
 <div class="container" id="main-menu"></div>
 
-<div class="cart-bar" id="cart-bar">
-    <div id="cart-info">0 Item(s) | ₹0</div>
-    <button style="background:var(--brand-yellow); color:var(--brand-red); padding:8px 15px; border-radius:8px; font-weight:700; border:none;" onclick="alert('Unlock website to order')">Order Now ➔</button>
-</div>
-
 <script>
-    // --- LOCK LOGIC ---
+    const LOCK_KEY_V2 = 'cafe_locked_v2'; // Isse aapke phone pe bhi firse lock aayega
+
     function validate() {
         if(document.getElementById('pass-key').value === "Abhay500") {
-            localStorage.setItem('menu_locked_v1', 'unlocked'); 
-            unlockNow();
-        } else { alert("Galat Code! Payment karein."); }
+            localStorage.setItem(LOCK_KEY_V2, 'unlocked');
+            location.reload(); 
+        } else { alert("Galat Code!"); }
     }
 
-    function unlockNow() {
-        document.getElementById('admin-lock-screen').style.display = 'none';
-        document.querySelector('.container').style.opacity = '1';
-        document.querySelector('.container').style.pointerEvents = 'auto';
-        document.body.style.overflow = 'auto';
-    }
-
-    // Isse check hoga ki pehle se unlock hai ya nahi
     window.onload = function() {
-        render(); // Menu pehle load hoga
-        if(localStorage.getItem('menu_locked_v1') === 'unlocked') {
-            unlockNow();
+        render();
+        if(localStorage.getItem(LOCK_KEY_V2) === 'unlocked') {
+            document.getElementById('admin-lock-screen').style.display = 'none';
+            document.querySelector('.container').style.opacity = '1';
+            document.querySelector('.container').style.filter = 'none';
+            document.querySelector('.container').style.pointerEvents = 'auto';
+            document.body.style.overflow = 'auto';
         }
-    }
+    };
 
     const menuData = {
         "NEW SNACKS 🍟": [
