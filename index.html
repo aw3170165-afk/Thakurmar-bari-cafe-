@@ -9,36 +9,36 @@
         :root {
             --brand-red: #D32F2F; 
             --brand-yellow: #FFD54F; 
-            --bg-light-yellow: #FFFDE7; /* Yello Background */
+            --bg-light-yellow: #FFFDE7; 
             --text-dark: #3E2723;
         }
 
-        /* --- LOCK SCREEN --- */
+        /* --- LOCK SCREEN (Pura Active) --- */
         #admin-lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
             z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;
         }
         .premium-modal {
             background: white; width: 100%; max-width: 400px; padding: 40px 30px;
             border-radius: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        .renew-btn { background: #4285F4; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: 700; margin-bottom: 15px; cursor: pointer; }
+        .renew-btn { background: #4285F4; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: 700; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3); cursor: pointer; }
+        
         #unlock-form { display: none; margin-top: 15px; }
         .key-input { width: 100%; padding: 12px; border: 1.5px solid #EEE; border-radius: 10px; margin-bottom: 10px; text-align: center; outline: none; }
         .submit-key { background: #1c1c1c; color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
 
-        /* --- ORIGINAL DESIGN --- */
+        /* --- MENU CSS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-light-yellow); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; overflow: hidden; } 
 
         header { background: #fff; padding: 20px 15px; position: sticky; top: 0; z-index: 1000; text-align: center; border-bottom: 4px solid var(--brand-yellow); }
         .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--brand-red); font-size: 1.8rem; }
-        header p { font-size: 0.8rem; color: #795548; margin-top: 5px; }
         
         .cat-nav { display: flex; overflow-x: auto; padding: 12px 10px; gap: 10px; background: #fff; }
-        .cat-nav::-webkit-scrollbar { display: none; }
-        .chip { padding: 8px 18px; border: 2px solid var(--brand-yellow); border-radius: 25px; font-size: 0.8rem; font-weight: 700; background: #FFF9C4; color: var(--brand-red); white-space: nowrap; cursor: pointer; }
+        .chip { padding: 8px 18px; border: 2px solid var(--brand-yellow); border-radius: 25px; font-size: 0.8rem; font-weight: 700; background: #FFF9C4; color: var(--brand-red); white-space: nowrap; }
 
         .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.1; pointer-events: none; } 
         .cat-section { margin-bottom: 30px; }
@@ -46,9 +46,9 @@
 
         .item { background: #fff; border-radius: 15px; padding: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .price { font-weight: 700; color: var(--brand-red); }
-        .add-btn { background: var(--brand-yellow); color: var(--brand-red); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 0 #FBC02D; }
+        .add-btn { background: var(--brand-yellow); color: var(--brand-red); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; box-shadow: 0 4px 0 #FBC02D; }
 
-        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--brand-red); color: #fff; padding: 16px 20px; border-radius: 15px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
+        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--brand-red); color: #fff; padding: 16px 20px; border-radius: 15px; display: none; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
@@ -83,20 +83,28 @@
 </div>
 
 <script>
+    // --- LOCK LOGIC ---
     function validate() {
         if(document.getElementById('pass-key').value === "Abhay500") {
             localStorage.setItem('menu_locked_v1', 'unlocked'); 
             unlockNow();
         } else { alert("Galat Code! Payment karein."); }
     }
+
     function unlockNow() {
         document.getElementById('admin-lock-screen').style.display = 'none';
         document.querySelector('.container').style.opacity = '1';
         document.querySelector('.container').style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
     }
-    // Auto-unlock check
-    if(localStorage.getItem('menu_locked_v1') === 'unlocked') { window.onload = unlockNow; }
+
+    // Isse check hoga ki pehle se unlock hai ya nahi
+    window.onload = function() {
+        render(); // Menu pehle load hoga
+        if(localStorage.getItem('menu_locked_v1') === 'unlocked') {
+            unlockNow();
+        }
+    }
 
     const menuData = {
         "NEW SNACKS 🍟": [
@@ -140,7 +148,6 @@
         }
         container.innerHTML = html; nav.innerHTML = chips;
     }
-    render();
 </script>
 </body>
 </html>
