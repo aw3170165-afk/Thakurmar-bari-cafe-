@@ -6,111 +6,57 @@
     <title>Thakurmar Bari Cafe | Digital Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --brand-red: #D32F2F; 
-            --brand-yellow: #FFD54F; 
-            --bg-cream: #FFFDE7; 
-            --text-dark: #3E2723;
-        }
-
+        :root { --brand-red: #D32F2F; --brand-yellow: #FFD54F; --bg-cream: #FFFDE7; --text-dark: #3E2723; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-cream); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; }
+        body { background-color: var(--bg-cream); color: var(--text-dark); scroll-behavior: smooth; padding-bottom: 120px; overflow: hidden; } /* Lock scroll initially */
 
-        header {
-            background: #fff;
-            padding: 20px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            text-align: center;
-            border-bottom: 4px solid var(--brand-yellow);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        /* --- PAYMENT LOCK OVERLAY --- */
+        #payment-lock {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center; padding: 20px;
         }
+        .lock-box { background: white; color: black; padding: 30px; border-radius: 20px; border-top: 8px solid var(--brand-red); max-width: 350px; }
+        .lock-box h2 { color: var(--brand-red); margin-bottom: 10px; }
+        .lock-box p { font-size: 0.9rem; margin-bottom: 20px; color: #555; }
+        .pay-btn { background: #25D366; color: white; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 15px; }
+        .unlock-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px; text-align: center; }
+        .unlock-btn { background: var(--brand-red); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
 
+        /* --- REST OF THE CSS --- */
+        header { background: #fff; padding: 20px 15px; position: sticky; top: 0; z-index: 1000; text-align: center; border-bottom: 4px solid var(--brand-yellow); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .b-title { font-family: 'Hind Siliguri', sans-serif; color: var(--brand-red); font-size: 1.8rem; }
         header p { font-size: 0.8rem; color: #795548; margin-top: 5px; }
-
         .cat-nav { display: flex; overflow-x: auto; padding: 12px 10px; gap: 10px; background: #fff; }
         .cat-nav::-webkit-scrollbar { display: none; }
-        .chip {
-            padding: 8px 18px;
-            border: 2px solid var(--brand-yellow);
-            border-radius: 25px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            background: #FFF9C4;
-            color: var(--brand-red);
-            white-space: nowrap;
-            cursor: pointer;
-        }
+        .chip { padding: 8px 18px; border: 2px solid var(--brand-yellow); border-radius: 25px; font-size: 0.8rem; font-weight: 700; background: #FFF9C4; color: var(--brand-red); white-space: nowrap; cursor: pointer; }
         .chip.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
-
-        .container { max-width: 650px; margin: 0 auto; padding: 15px; }
+        .container { max-width: 650px; margin: 0 auto; padding: 15px; opacity: 0.2; pointer-events: none; } /* Blur background until pay */
         .cat-section { margin-bottom: 30px; }
         .cat-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--brand-red); border-bottom: 2px solid var(--brand-yellow); display: inline-block; }
-
-        .item {
-            background: #fff;
-            border-radius: 15px;
-            padding: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
+        .item { background: #fff; border-radius: 15px; padding: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .name { font-size: 1rem; font-weight: 600; }
         .price { font-weight: 700; color: var(--brand-red); }
-
         .btn-box { position: relative; width: 100px; text-align: center; }
-        
-        .add-btn {
-            background: var(--brand-yellow);
-            color: var(--brand-red);
-            border: none;
-            padding: 10px 0;
-            border-radius: 10px;
-            font-weight: 700;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 4px 0 #FBC02D;
-        }
-
-        .qty-ctrl {
-            display: none; 
-            background: var(--brand-red);
-            color: #fff;
-            border-radius: 10px;
-            padding: 8px;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 0 #8b0000;
-        }
+        .add-btn { background: var(--brand-yellow); color: var(--brand-red); border: none; padding: 10px 0; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
+        .qty-ctrl { display: none; background: var(--brand-red); color: #fff; border-radius: 10px; padding: 8px; justify-content: space-between; align-items: center; }
         .q-btn { background: none; border: none; color: #fff; font-size: 1.3rem; font-weight: bold; width: 30px; cursor: pointer; }
-        .q-num { font-weight: 700; }
-
-        .cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background: var(--brand-red);
-            color: #fff;
-            padding: 16px 20px;
-            border-radius: 15px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 2000;
-            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
-        }
+        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--brand-red); color: #fff; padding: 16px 20px; border-radius: 15px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
         .order-btn { background: var(--brand-yellow); color: var(--brand-red); padding: 8px 15px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
+
+<div id="payment-lock">
+    <div class="lock-box">
+        <h2>⚠️ Attention!</h2>
+        <p>Aapka digital menu subscription khatam ho gaya hai. Service chalu rakhne ke liye ₹500 pay karein.</p>
+        <a href="https://wa.me/918335952010?text=I want to pay ₹500 to unlock my website" class="pay-btn">Pay ₹500 on WhatsApp</a>
+        <input type="password" id="unlock-key" class="unlock-input" placeholder="Enter Unlock Code">
+        <button class="unlock-btn" onclick="checkLock()">Unlock Website</button>
+    </div>
+</div>
 
 <header>
     <div class="b-title">ঠাকুরমার বাড়ি ক্যাফে</div>
@@ -126,19 +72,26 @@
 </div>
 
 <script>
+    // LOCK LOGIC
+    function checkLock() {
+        const key = document.getElementById('unlock-key').value;
+        if(key === "Abhay500") { // <--- YE UNLOCK CODE HAI
+            document.getElementById('payment-lock').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.querySelector('.container').style.opacity = '1';
+            document.querySelector('.container').style.pointerEvents = 'auto';
+            alert("Website Unlocked Successfully!");
+        } else {
+            alert("Galat Code! Pehle Abhay ko ₹500 pay karein.");
+        }
+    }
+
+    // MENU DATA (Exact as your image)
     const menuData = {
-        "NEW SNACKS 🍟": [
-            {n: "Chicken Popcorn (12pc)", p: 79}, {n: "Chicken Wings (4pc)", p: 139},
-            {n: "Chicken Strips (5pc)", p: 259}, {n: "Peri Peri Chicken Fingers (5pc)", p: 99},
-            {n: "Chicken Samosa (6pc)", p: 135}, {n: "Chicken Kiev (8pc)", p: 99},
-            {n: "Chicken Spring Roll (5pc)", p: 120}, {n: "Crunchy Chicken Nugget (1pc)", p: 25},
-            {n: "Spicy Chicken Wings (2pc)", p: 75}, {n: "Fish Fingers (5pc)", p: 130},
-            {n: "Cheese Corn Triangles (10pc)", p: 99}, {n: "Fish Fry (2pc)", p: 75}
-        ],
         "TEA & COFFEE ☕": [
-            {n: "Black Tea", p: 15}, {n: "Milk Tea (Small)", p: 15}, {n: "Milk Tea (Large)", p: 20},
-            {n: "Masala Tea", p: 15}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
-            {n: "Cold Coffee", p: 50}, {n: "Normal Coffee", p: 20}
+            {n: "Black Tea", p: 15}, {n: "Milk Tea (Small)", p: 10}, {n: "Milk Tea (Large)", p: 20},
+            {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
+            {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
         ],
         "DRINK'S 🍹": [
             {n: "Coconut Water", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
@@ -149,21 +102,21 @@
             {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
             {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
         ],
-        "MOMO'S 🥟": [
-            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
-            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99},
-            {n: "Pizza / Chicken Momo", p: 99}
+        "SPECIAL ⭐": [
+            {n: "Green Peas", p: 0}, {n: "Basa Fish Premium", p: 0}, {n: "Prawan", p: 0}, 
+            {n: "Amritsari Crab Claw", p: 0}, {n: "Veg Mayyanoise", p: 0}
         ],
         "STATER'S 🍟": [
             {n: "French Fries", p: 70}, {n: "Peri Peri Fries", p: 99}, {n: "Chicken Cheese Pizza", p: 120},
             {n: "Chicken Nuggets", p: 99}, {n: "Chicken Popcorn", p: 99}, {n: "Chicken Wings", p: 99}, {n: "Chicken Finger", p: 99}
         ],
-        "COMBO 🍱": [
-            {n: "Tea(2)+Fries+Momos", p: 150}, {n: "Tea(5)+Fries+Momos", p: 199}
+        "MOMO'S 🥟": [
+            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
+            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99},
+            {n: "Pizza / Chicken Momo", p: 99}
         ],
-        "SPECIAL ⭐": [
-            {n: "Green Peas", p: 0}, {n: "Basa Fish Premium", p: 0}, {n: "Prawan", p: 0}, 
-            {n: "Amritsari Crab Claw", p: 0}, {n: "Veg Mayyanoise", p: 0}
+        "COMBO 🍱": [
+            {n: "Tea(2)+Fries+Momos", p: 150}, {n: "Tea(5)+Fries+Momos", p: 150}
         ]
     };
 
@@ -181,14 +134,9 @@
             
             items.forEach(item => {
                 const cleanId = item.n.replace(/[^a-z0-9]/gi, '');
-                const priceLabel = item.p === 0 ? "Ask Price" : "₹" + item.p;
-                
                 html += `
                 <div class="item">
-                    <div>
-                        <div class="name">${item.n}</div>
-                        <div class="price">${priceLabel}</div>
-                    </div>
+                    <div><div class="name">${item.n}</div><div class="price">${item.p? '₹'+item.p : 'Ask Price'}</div></div>
                     <div class="btn-box">
                         <button class="add-btn" id="a-${cleanId}" onclick="updateQty('${item.n}',${item.p},1,'${cleanId}')">ADD</button>
                         <div class="qty-ctrl" id="c-${cleanId}">
@@ -207,49 +155,25 @@
     function updateQty(name, price, d, id) {
         if (!cart[name]) cart[name] = { q: 0, p: price };
         cart[name].q += d;
-
-        const aBtn = document.getElementById(`a-${id}`);
-        const ctrl = document.getElementById(`c-${id}`);
-        const qNum = document.getElementById(`q-${id}`);
-
-        if (cart[name].q <= 0) {
-            delete cart[name];
-            aBtn.style.display = 'block';
-            ctrl.style.display = 'none';
-        } else {
-            aBtn.style.display = 'none';
-            ctrl.style.display = 'flex';
-            qNum.innerText = cart[name].q;
-        }
+        const aBtn = document.getElementById(`a-${id}`), ctrl = document.getElementById(`c-${id}`), qNum = document.getElementById(`q-${id}`);
+        if (cart[name].q <= 0) { delete cart[name]; aBtn.style.display = 'block'; ctrl.style.display = 'none'; }
+        else { aBtn.style.display = 'none'; ctrl.style.display = 'flex'; qNum.innerText = cart[name].q; }
         updateBar();
     }
 
     function updateBar() {
         const bar = document.getElementById('cart-bar');
         let tQ = 0, tA = 0;
-        for (const n in cart) { 
-            tQ += cart[n].q; 
-            tA += (cart[n].q * cart[n].p); 
-        }
-        if (tQ > 0) {
-            bar.style.display = 'flex';
-            document.getElementById('cart-info').innerHTML = `<b>${tQ} Item(s)</b> | ₹${tA}`;
-        } else {
-            bar.style.display = 'none';
-        }
+        for (const n in cart) { tQ += cart[n].q; tA += (cart[n].q * cart[n].p); }
+        if (tQ > 0) { bar.style.display = 'flex'; document.getElementById('cart-info').innerHTML = `<b>${tQ} Item(s)</b> | ₹${tA}`; }
+        else { bar.style.display = 'none'; }
     }
 
     function sendToWhatsApp() {
-        let msg = "*NEW ORDER - THAKURMAR BARI CAFE*%0A------------------------------%0A";
-        let total = 0;
-        for (const n in cart) {
-            msg += `• *${n}* x ${cart[n].q} = ₹${cart[n].q * cart[n].p}%0A`;
-            total += cart[n].q * cart[n].p;
-        }
-        msg += `------------------------------%0A*Total: ₹${total}*%0A%0APlease confirm my order!`;
-        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
+        let msg = "*NEW ORDER - THAKURMAR BARI*%0A";
+        for (const n in cart) msg += `• ${n} x ${cart[n].q}%0A`;
+        window.open(`https://wa.me/918335952010?text=${msg}`);
     }
-
     render();
 </script>
 </body>
