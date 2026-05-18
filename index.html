@@ -3,45 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Indica | Kalyani's Premium Cafe Experience</title>
+    <title>Cafe Indica | Kalyani's Premium Culinary Lounge</title>
     
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- CSS STYLING (Embedded) -->
     <style>
         :root {
-            --bg-color: #0f1115;
-            --surface-color: #1a1d24;
+            --bg-dark: #0a0c0f;
+            --surface-card: #13171f;
+            --brand-green: #294025;         /* Matched with your Logo color */
+            --brand-cream: #dedcd3;         /* Matched with your Logo background */
             --accent-gold: #cda45e;
-            --text-main: #ffffff;
-            --text-muted: #a8aeb7;
+            --text-pure: #ffffff;
+            --text-dim: #9ea5b0;
             --whatsapp-green: #25d366;
+            --status-open: #2ecc71;
+            --status-closed: #e74c3c;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-dark);
+            color: var(--text-pure);
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* Navbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 10px; }
+
+        /* Navbar Architecture */
         .navbar {
-            background-color: rgba(15, 17, 21, 0.95);
-            padding: 20px 5%;
+            background-color: rgba(10, 12, 15, 0.96);
+            padding: 10px 5%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(205, 164, 94, 0.15);
+            border-bottom: 1px solid rgba(205, 164, 94, 0.1);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
         }
@@ -54,33 +62,52 @@
             align-items: center;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-main);
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
-            letter-spacing: 1px;
         }
 
-        .logo span {
-            color: var(--accent-gold);
+        /* Responsive Branding Logo */
+        .brand-logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-gold);
+            background-color: var(--brand-cream);
         }
 
-        .nav-location {
-            font-size: 14px;
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            padding: 6px 15px;
-            border-radius: 50px;
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-pure);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span { color: var(--accent-gold); }
+
+        .status-badge {
+            font-size: 12px;
             font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Hero Section */
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+        /* Hero Frame */
         .hero {
             height: 85vh;
-            background: linear-gradient(rgba(15, 17, 21, 0.75), rgba(15, 17, 21, 0.95)), 
-                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=1600') no-repeat center center/cover;
+            background: linear-gradient(rgba(10, 12, 15, 0.75), rgba(10, 12, 15, 0.98)), 
+                        url('https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=1600') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,396 +120,398 @@
             font-size: 52px;
             line-height: 1.2;
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .hero-tag {
             color: var(--accent-gold);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 13px;
+            letter-spacing: 4px;
+            font-size: 12px;
             font-weight: 600;
+            margin-bottom: 12px;
             display: inline-block;
-            margin-bottom: 10px;
         }
 
         .hero-content p {
-            color: var(--text-muted);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 30px;
+            color: var(--text-dim);
+            font-size: 17px;
+            max-width: 650px;
+            margin: 0 auto 35px;
         }
 
-        .btn-primary {
+        .btn-gold {
             display: inline-block;
-            padding: 12px 35px;
+            padding: 14px 38px;
             background-color: transparent;
             color: var(--accent-gold);
             border: 2px solid var(--accent-gold);
             text-decoration: none;
             font-weight: 600;
             border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
             transition: all 0.4s ease;
         }
 
-        .btn-primary:hover {
+        .btn-gold:hover {
             background-color: var(--accent-gold);
-            color: var(--bg-color);
-            box-shadow: 0px 0px 20px rgba(205, 164, 94, 0.4);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px rgba(205, 164, 94, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* Features Section */
-        .features {
+        /* Ambient Experience Segment (Showcasing Your Cafe) */
+        .ambience-section {
             max-width: 1200px;
-            margin: -60px auto 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .feature-card {
-            background-color: var(--surface-color);
-            padding: 35px 25px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card i {
-            font-size: 32px;
-            color: var(--accent-gold);
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Menu Section */
-        .menu-container {
-            max-width: 1200px;
-            margin: 0 auto 80px;
+            margin: 60px auto 20px;
             padding: 0 20px;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: var(--text-muted);
-        }
-
-        /* Menu Tabs */
-        .menu-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 45px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 600;
-            padding: 8px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-bottom: 2px solid transparent;
-        }
-
-        .tab-btn:hover, .tab-btn.active {
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
-        }
-
-        /* Menu Grid & Cards */
-        .menu-grid {
+        .ambience-container {
+            background: var(--surface-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .menu-item {
-            background-color: var(--surface-color);
+        .ambience-image-box {
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            border: 2px solid rgba(205, 164, 94, 0.2);
+            height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .menu-item:hover {
-            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
-            border-color: rgba(205, 164, 94, 0.3);
-        }
-
-        .item-img-container {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .item-img-container img {
+        .ambience-image-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .menu-item:hover .item-img-container img {
-            transform: scale(1.08);
+        .ambience-image-box:hover img { transform: scale(1.03); }
+
+        .ambience-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
         }
 
-        .item-info {
-            padding: 20px;
+        .ambience-text p {
+            color: var(--text-dim);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .mini-feature {
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--brand-green);
+        }
+
+        .mini-feature h4 { font-size: 15px; margin-bottom: 5px; color: #fff;}
+        .mini-feature p { font-size: 12px; color: var(--text-dim); margin: 0; }
+
+        /* Menu Panel Layout */
+        .menu-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .section-header p { color: var(--text-dim); font-size: 15px; }
+
+        .menu-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dim);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            color: var(--bg-dark);
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(205, 164, 94, 0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--surface-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
         }
 
-        .item-info h3 {
-            font-size: 19px;
-            margin-bottom: 8px;
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(205, 164, 94, 0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .img-box { height: 210px; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .product-card:hover .img-box img { transform: scale(1.06); }
+
+        .product-details { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-details h3 { font-size: 19px; margin-bottom: 8px; font-weight: 600; }
+        .product-desc { color: var(--text-dim); font-size: 13px; margin-bottom: 22px; line-height: 1.6; flex-grow: 1; }
+        .product-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .card-price { font-size: 23px; font-weight: 700; color: var(--accent-gold); }
+
+        .add-to-cart-btn {
+            background-color: transparent;
+            color: var(--text-pure);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
             font-weight: 600;
-        }
-
-        .item-desc {
-            color: var(--text-muted);
             font-size: 13px;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            flex-grow: 1;
+            transition: all 0.3s;
         }
 
-        .item-bottom {
+        .add-to-cart-btn:hover {
+            background-color: var(--text-pure);
+            color: var(--bg-dark);
+            border-color: var(--text-pure);
+        }
+
+        /* Cart Output Engine */
+        .cart-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 650px;
+            background: rgba(19, 23, 31, 0.96);
+            border: 1px solid var(--accent-gold);
+            padding: 16px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: auto;
+            z-index: 999;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .price {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
+        .cart-bar.active { bottom: 30px; }
+        .cart-info-side h4 { font-size: 16px; font-weight: 600; }
+        .cart-info-side p { font-size: 12px; color: var(--text-dim); }
 
-        .order-btn {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
+        .checkout-btn {
+            background-color: var(--whatsapp-green);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
             font-size: 14px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s;
         }
 
-        .order-btn i {
-            font-size: 16px;
-            color: var(--text-muted);
-            transition: color 0.3s;
-        }
+        .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
 
-        .order-btn:hover {
-            background-color: var(--whatsapp-green);
-            border-color: var(--whatsapp-green);
-            color: #fff;
-        }
-
-        .order-btn:hover i {
-            color: #fff;
-        }
-
-        /* Footer */
         footer {
-            background-color: #08090c;
-            padding: 40px 20px;
+            background-color: #050608;
+            padding: 50px 20px;
             text-align: center;
-            border-top: 1px solid rgba(205, 164, 94, 0.1);
-            margin-top: 50px;
+            border-top: 1px solid rgba(205, 164, 94, 0.05);
         }
 
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .footer-logo span { color: var(--accent-gold); }
+        footer p { color: var(--text-dim); font-size: 13px; margin-bottom: 6px; }
+        .ownership-tag { margin-top: 25px; font-size: 11px !important; opacity: 0.2; letter-spacing: 1px; }
+
+        @media (max-width: 992px) {
+            .ambience-container { grid-template-columns: 1fr; gap: 25px; }
+            .ambience-image-box { height: 320px; }
         }
 
-        .footer-logo span {
-            color: var(--accent-gold);
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .copyright {
-            margin-top: 20px;
-            font-size: 12px !important;
-            opacity: 0.5;
-        }
-
-        /* Responsive UI */
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 36px; }
-            .features { margin-top: 30px; }
+            .cart-bar { padding: 14px 20px; border-radius: 16px; width: 95%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">Cafe<span>Indica</span></a>
-            <div class="nav-location"><i class="fas fa-map-marker-alt"></i> Kalyani, WB</div>
+            <a href="#" class="logo-wrapper">
+                <img src="1000295631.png" alt="Cafe Indica Logo" class="brand-logo-img">
+                <div class="logo-text">Cafe<span>Indica</span></div>
+            </a>
+            <div id="statusBadge" class="status-badge">
+                <span id="statusDot" class="status-dot"></span>
+                <span id="statusText">Checking Sync...</span>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-content">
-            <span class="hero-tag">Welcome to Kalyani's Finest</span>
-            <h1>Crafting Moments,<br>One Sip At A Time.</h1>
-            <p>Experience premium brewing and exquisite taste tailored exclusively for you.</p>
-            <a href="#menu-section" class="btn-primary">Explore Menu</a>
+            <span class="hero-tag">Kalyani's Premier Culinary Experience</span>
+            <h1>Crafted Flavors,<br>Unmatched Ambience.</h1>
+            <p>Step inside our exclusive lounge and experience a unique blend of custom gourmet and hand-pressed brews.</p>
+            <a href="#menu-panel" class="btn-gold">Explore Menu Lounge</a>
         </div>
     </header>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="feature-card">
-            <i class="fas fa-mug-hot"></i>
-            <h3>Premium Brews</h3>
-            <p>100% Arabica beans roasted to perfection.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-hamburger"></i>
-            <h3>Fresh Gourmet</h3>
-            <p>Prepared fresh daily by expert chefs.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-bolt"></i>
-            <h3>Instant Ordering</h3>
-            <p>Direct kitchen-to-table dynamic routing.</p>
+    <section class="ambience-section">
+        <div class="ambience-container">
+            <div class="ambience-image-box">
+                <img src="1000303405.jpg" alt="Cafe Indica Premium Interior Vibe">
+            </div>
+            <div class="ambience-text">
+                <h2>Our Premium Lounge</h2>
+                <p>Designed with meticulous attention to detail, Cafe Indica brings a sophisticated, cozy aesthetic right to the heart of Kalyani. Whether you're here to brainstorm, unwind, or celebrate, our custom lighting and cozy corners sets the perfect mood.</p>
+                
+                <div class="feature-mini-grid">
+                    <div class="mini-feature">
+                        <h4>Sophisticated Decor</h4>
+                        <p>Plush seating with luxury accents.</p>
+                    </div>
+                    <div class="mini-feature">
+                        <h4>Aesthetic Lighting</h4>
+                        <p>Perfect spot for your regular social feeds.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu-section" class="menu-container">
-        <div class="section-title">
-            <h2>Our Exclusive Menu</h2>
-            <p>Select your favorites and tap order to connect directly with our kitchen</p>
+    <section id="menu-panel" class="menu-section">
+        <div class="section-header">
+            <h2>Our Signature Offerings</h2>
+            <p>Select your delicacies, monitor live pricing in your custom card, and place orders seamlessly.</p>
         </div>
 
-        <!-- Category Filter Tabs -->
-        <div class="menu-tabs">
-            <button class="tab-btn active" onclick="filterMenu('all', event)">All Items</button>
-            <button class="tab-btn" onclick="filterMenu('coffee', event)">Hot & Cold Coffee</button>
-            <button class="tab-btn" onclick="filterMenu('snacks', event)">Gourmet Snacks</button>
-            <button class="tab-btn" onclick="filterMenu('desserts', event)">Desserts</button>
+        <div class="menu-filters">
+            <button class="filter-btn active" onclick="filterItems('all', event)">All Masterpieces</button>
+            <button class="filter-btn" onclick="filterItems('coffee', event)">Brews & Cold Drinks</button>
+            <button class="filter-btn" onclick="filterItems('snacks', event)">Gourmet Kitchen</button>
+            <button class="filter-btn" onclick="filterItems('desserts', event)">Sweet Alchemy</button>
         </div>
 
-        <!-- Menu Grid -->
-        <div class="menu-grid" id="menuGrid">
+        <div class="menu-grid">
             
-            <!-- Item 1: Coffee -->
-            <div class="menu-item" data-category="coffee">
-                <div class="item-img-container">
+            <div class="product-card" data-cat="coffee">
+                <div class="img-box">
                     <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=600" alt="Espresso">
                 </div>
-                <div class="item-info">
+                <div class="product-details">
                     <h3>Premium Espresso</h3>
-                    <p class="item-desc">Rich, full-bodied espresso shot with a smooth, premium crema.</p>
-                    <div class="item-bottom">
-                        <span class="price">₹120</span>
-                        <button class="order-btn" onclick="orderViaWhatsApp('Premium Espresso', '120')">
-                            Order Now <i class="fab fa-whatsapp"></i>
+                    <p class="product-desc">Pure bold extraction of handpicked Arabica beans. Strong & aromatic.</p>
+                    <div class="product-action-row">
+                        <span class="card-price">₹120</span>
+                        <button class="add-to-cart-btn" onclick="modifyCart('Premium Espresso', 120)">
+                            Add To Order +
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Item 2: Coffee -->
-            <div class="menu-item" data-category="coffee">
-                <div class="item-img-container">
+            <div class="product-card" data-cat="coffee">
+                <div class="img-box">
                     <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=600" alt="Iced Latte">
                 </div>
-                <div class="item-info">
+                <div class="product-details">
                     <h3>Indica Crafted Iced Latte</h3>
-                    <p class="item-desc">Chilled milk over espresso, layered with our signature vanilla syrup.</p>
-                    <div class="item-bottom">
-                        <span class="price">₹160</span>
-                        <button class="order-btn" onclick="orderViaWhatsApp('Indica Crafted Iced Latte', '160')">
-                            Order Now <i class="fab fa-whatsapp"></i>
+                    <p class="product-desc">Chilled cream layers over bold espresso shots mixed with house organic vanilla essence.</p>
+                    <div class="product-action-row">
+                        <span class="card-price">₹160</span>
+                        <button class="add-to-cart-btn" onclick="modifyCart('Indica Crafted Iced Latte', 160)">
+                            Add To Order +
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Item 3: Snacks -->
-            <div class="menu-item" data-category="snacks">
-                <div class="item-img-container">
-                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600" alt="Club Sandwich">
+            <div class="product-card" data-cat="snacks">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600" alt="Sandwich">
                 </div>
-                <div class="item-info">
+                <div class="product-details">
                     <h3>Smoked Chicken Grilled Sandwich</h3>
-                    <p class="item-desc">Crusty artisan bread loaded with premium smoked chicken and melted cheese.</p>
-                    <div class="item-bottom">
-                        <span class="price">₹180</span>
-                        <button class="order-btn" onclick="orderViaWhatsApp('Smoked Chicken Grilled Sandwich', '180')">
-                            Order Now <i class="fab fa-whatsapp"></i>
+                    <p class="product-desc">Rustic sourdough toasted to golden brown crisp, packed with chicken layers and molten cheese.</p>
+                    <div class="product-action-row">
+                        <span class="card-price">₹180</span>
+                        <button class="add-to-cart-btn" onclick="modifyCart('Smoked Chicken Grilled Sandwich', 180)">
+                            Add To Order +
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Item 4: Desserts -->
-            <div class="menu-item" data-category="desserts">
-                <div class="item-img-container">
-                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=600" alt="Chocolate Fudge">
+            <div class="product-card" data-cat="desserts">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=600" alt="Fudge">
                 </div>
-                <div class="item-info">
+                <div class="product-details">
                     <h3>Sizzling Chocolate Fudge</h3>
-                    <p class="item-desc">Warm, rich chocolate brownie topped with vanilla ice cream and hot fudge swirl.</p>
-                    <div class="item-bottom">
-                        <span class="price">₹210</span>
-                        <button class="order-btn" onclick="orderViaWhatsApp('Sizzling Chocolate Fudge', '210')">
-                            Order Now <i class="fab fa-whatsapp"></i>
+                    <p class="product-desc">Warm artisan brownie served sizzling over absolute dark ganache pour and cold gelato scoops.</p>
+                    <div class="product-action-row">
+                        <span class="card-price">₹210</span>
+                        <button class="add-to-cart-btn" onclick="modifyCart('Sizzling Chocolate Fudge', 210)">
+                            Add To Order +
                         </button>
                     </div>
                 </div>
@@ -491,49 +520,29 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <div id="cartDrawer" class="cart-bar">
+        <div class="cart-info-side">
+            <h4 id="cartTitleText">Selected Items (0)</h4>
+            <p id="cartBillingSummary">Total: ₹0 | Routing Framework Active</p>
+        </div>
+        <button id="cartSubmitAction" class="checkout-btn" onclick="transmitOrder()">
+            Send Order <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
+
     <footer>
-        <div class="footer-content">
+        <div class="footer-wrapper">
             <p class="footer-logo">Cafe<span>Indica</span></p>
-            <p><i class="fas fa-map-marker-alt"></i> B-Block, Kalyani, West Bengal</p>
-            <p class="copyright">© 2026 Cafe Indica. All Rights Privately Owned & Reserved.</p>
+            <p><i class="fas fa-map-marker-alt" style="color: var(--accent-gold);"></i> B-Block, Kalyani, West Bengal</p>
+            <p class="ownership-tag">© 2026 CAFE INDICA. STRICTLY PRIVATELY OWNED & OPERATED DIGITAL LOUNGE COMPONENT.</p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC (Embedded) -->
     <script>
-        // IMPORTANT: Replace this with your exact WhatsApp Business Number (with country code 91, no spaces/special characters)
-        const CAFE_WHATSAPP_NUMBER = "919876543210"; 
+        // CONFIGURATION: Set your original WhatsApp target business number here
+        const RECEIVER_WHATSAPP_NUMBER = "919876543210"; 
 
-        // Dynamic Order Routing
-        function orderViaWhatsApp(itemName, itemPrice) {
-            const message = `Hello Cafe Indica! I would like to place an order from the website:\n\n` +
-                            `🍔 *Item Name:* ${itemName}\n` +
-                            `💰 *Price:* ₹${itemPrice}\n\n` +
-                            `Please confirm my order. Thanks!`;
-                            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${CAFE_WHATSAPP_NUMBER}?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-        }
+        let basketStorage = {};
+        let systemOperationalStatus = false;
 
-        // Live Category Filtering 
-        function filterMenu(category, event) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const items = document.querySelectorAll('.menu-item');
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-    </script>
-</body>
-    </html>
-                        
+        function synchro
