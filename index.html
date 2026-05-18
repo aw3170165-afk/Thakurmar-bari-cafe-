@@ -3,254 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thakurmar Bari Cafe - Order Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+    <title>Cafe Indica | Kalyani's Premium Cafe Experience</title>
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS STYLING (Embedded) -->
     <style>
         :root {
-            --primary-red: #8b0000;
-            --accent-gold: #d4af37;
-            --bg-dark: #1a1a1a;
-            --card-bg: #ffffff;
-            --text-main: #333;
+            --bg-color: #0f1115;
+            --surface-color: #1a1d24;
+            --accent-gold: #cda45e;
+            --text-main: #ffffff;
+            --text-muted: #a8aeb7;
+            --whatsapp-green: #25d366;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f4f1ea;
+            background-color: var(--bg-color);
             color: var(--text-main);
-            padding-bottom: 100px;
+            scroll-behavior: smooth;
         }
 
-        header {
-            background-color: var(--primary-red);
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-            border-bottom: 5px solid var(--accent-gold);
-            margin-bottom: 30px;
-        }
-
-        .bengali-font { font-family: 'Hind Siliguri', sans-serif; font-size: 1.4em; }
-
-        header h1 { margin-bottom: 5px; font-weight: 700; }
-        header p { font-size: 0.9em; opacity: 0.9; letter-spacing: 1px; }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
-
-        .category-title {
-            color: var(--primary-red);
-            border-left: 5px solid var(--accent-gold);
-            padding-left: 15px;
-            margin: 30px 0 20px;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            background: white;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
-        }
-
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-        }
-
-        .item-card {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-
-        .item-details { flex: 1; }
-        .item-name { font-weight: 600; display: block; font-size: 1.05rem; margin-bottom: 4px; }
-        .item-price { color: var(--primary-red); font-weight: 700; }
-
-        /* Quantity Controls */
-        .controls {
-            display: flex;
-            align-items: center;
-            background: #f8f8f8;
-            border-radius: 25px;
-            padding: 5px 12px;
-            border: 1px solid #ddd;
-        }
-
-        .btn-qty {
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .qty-val { margin: 0 12px; font-weight: 700; min-width: 15px; text-align: center; }
-
-        /* Sticky Footer Cart */
-        .cart-bar {
+        /* Navbar Styling */
+        .navbar {
+            background-color: rgba(15, 17, 21, 0.95);
+            padding: 20px 5%;
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 600px;
-            background: var(--primary-red);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: none;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(205, 164, 94, 0.15);
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
-            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-location {
+            font-size: 14px;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(15, 17, 21, 0.75), rgba(15, 17, 21, 0.95)), 
+                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=1600') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-tag {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            box-shadow: 0px 0px 20px rgba(205, 164, 94, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: -60px auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background-color: var(--surface-color);
+            padding: 35px 25px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Menu Section */
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        /* Menu Tabs */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Menu Grid & Cards */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item:hover {
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+            border-color: rgba(205, 164, 94, 0.3);
+        }
+
+        .item-img-container {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .item-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-item:hover .item-img-container img {
+            transform: scale(1.08);
+        }
+
+        .item-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .item-info h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .item-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-gold);
         }
 
         .order-btn {
-            background: var(--accent-gold);
-            color: #000;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: 700;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .order-btn:hover { background: #fff; }
+        .order-btn i {
+            font-size: 16px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
 
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.8rem; }
-            .items-grid { grid-template-columns: 1fr; }
+        .order-btn:hover {
+            background-color: var(--whatsapp-green);
+            border-color: var(--whatsapp-green);
+            color: #fff;
+        }
+
+        .order-btn:hover i {
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #08090c;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(205, 164, 94, 0.1);
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--accent-gold);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px !important;
+            opacity: 0.5;
+        }
+
+        /* Responsive UI */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 36px; }
+            .features { margin-top: 30px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1 class="bengali-font">ঠাকুরমার বাড়ি ক্যাফে</h1>
-    <h1>Thakurmar Bari Cafe</h1>
-    <p>Kalyani Chadamari More | Call: 8335952010</p>
-</header>
+    <!-- Header / Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Cafe<span>Indica</span></a>
+            <div class="nav-location"><i class="fas fa-map-marker-alt"></i> Kalyani, WB</div>
+        </div>
+    </nav>
 
-<div class="container" id="menu-container"></div>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Welcome to Kalyani's Finest</span>
+            <h1>Crafting Moments,<br>One Sip At A Time.</h1>
+            <p>Experience premium brewing and exquisite taste tailored exclusively for you.</p>
+            <a href="#menu-section" class="btn-primary">Explore Menu</a>
+        </div>
+    </header>
 
-<div class="cart-bar" id="cart-bar">
-    <div>
-        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
-    </div>
-    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp</button>
-</div>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-mug-hot"></i>
+            <h3>Premium Brews</h3>
+            <p>100% Arabica beans roasted to perfection.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-hamburger"></i>
+            <h3>Fresh Gourmet</h3>
+            <p>Prepared fresh daily by expert chefs.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-bolt"></i>
+            <h3>Instant Ordering</h3>
+            <p>Direct kitchen-to-table dynamic routing.</p>
+        </div>
+    </section>
 
-<script>
-    const menuData = {
-        "Tea & Coffee ☕": [
-            {n: "Black Tea", p: 15}, {n: "Milk Tea (S)", p: 10}, {n: "Milk Tea (L)", p: 20},
-            {n: "Masala Tea", p: 10}, {n: "Lemon Tea", p: 20}, {n: "Green Tea", p: 30},
-            {n: "Cold Coffee", p: 50}, {n: "Black Coffee", p: 30}
-        ],
-        "Drinks 🥤": [
-            {n: "Coconut Water Special", p: 80}, {n: "Plain Lassi", p: 18}, {n: "Badam Lassi", p: 30},
-            {n: "Masala Aam Pora Sharbat", p: 20}, {n: "Mango Juice Special", p: 40},
-            {n: "Special Orange Juice", p: 50}, {n: "Masala Cold Drink", p: 30}, {n: "Masala Soda", p: 25}
-        ],
-        "Maggie & Burger 🍔": [
-            {n: "Veg Maggie", p: 40}, {n: "Chicken Maggie", p: 50}, {n: "Chicken Drumsticks", p: 60},
-            {n: "Chicken Burger", p: 90}, {n: "Chicken Breast Strips", p: 90}, {n: "Chicken Cheese Ball", p: 90}
-        ],
-        "Momo Specials 🥟": [
-            {n: "Veg Momo (Steam)", p: 60}, {n: "Veg Momo (Fry)", p: 70}, {n: "Veg Momo (Pan)", p: 99},
-            {n: "Chicken Momo (Steam)", p: 70}, {n: "Chicken Momo (Fry)", p: 80}, {n: "Chicken Momo (Pan)", p: 99}
-        ],
-        "Snacks & Starters 🍟": [
-            {n: "French Fries", p: 70}, {n: "Peri Peri French Fries", p: 99},
-            {n: "Chicken Cheese Pizza", p: 120}, {n: "Chicken Nuggets (8pcs)", p: 99},
-            {n: "Chicken Popcorn (16pcs)", p: 99}, {n: "Chicken Wings (3pcs)", p: 99},
-            {n: "Chicken Finger (6pcs)", p: 99}
-        ],
-        "Combos 🍱": [
-            {n: "Tea(2)+Fries+Momos Combo", p: 150},
-            {n: "Tea(5)+Fries+Momos Combo", p: 150}
-        ]
-    };
+    <!-- Menu Section -->
+    <section id="menu-section" class="menu-container">
+        <div class="section-title">
+            <h2>Our Exclusive Menu</h2>
+            <p>Select your favorites and tap order to connect directly with our kitchen</p>
+        </div>
 
-    let cart = {};
+        <!-- Category Filter Tabs -->
+        <div class="menu-tabs">
+            <button class="tab-btn active" onclick="filterMenu('all', event)">All Items</button>
+            <button class="tab-btn" onclick="filterMenu('coffee', event)">Hot & Cold Coffee</button>
+            <button class="tab-btn" onclick="filterMenu('snacks', event)">Gourmet Snacks</button>
+            <button class="tab-btn" onclick="filterMenu('desserts', event)">Desserts</button>
+        </div>
 
-    function renderMenu() {
-        const container = document.getElementById('menu-container');
-        let html = '';
-        for (const [cat, items] of Object.entries(menuData)) {
-            html += `<h2 class="category-title">${cat}</h2><div class="items-grid">`;
+        <!-- Menu Grid -->
+        <div class="menu-grid" id="menuGrid">
+            
+            <!-- Item 1: Coffee -->
+            <div class="menu-item" data-category="coffee">
+                <div class="item-img-container">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=600" alt="Espresso">
+                </div>
+                <div class="item-info">
+                    <h3>Premium Espresso</h3>
+                    <p class="item-desc">Rich, full-bodied espresso shot with a smooth, premium crema.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹120</span>
+                        <button class="order-btn" onclick="orderViaWhatsApp('Premium Espresso', '120')">
+                            Order Now <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2: Coffee -->
+            <div class="menu-item" data-category="coffee">
+                <div class="item-img-container">
+                    <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=600" alt="Iced Latte">
+                </div>
+                <div class="item-info">
+                    <h3>Indica Crafted Iced Latte</h3>
+                    <p class="item-desc">Chilled milk over espresso, layered with our signature vanilla syrup.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹160</span>
+                        <button class="order-btn" onclick="orderViaWhatsApp('Indica Crafted Iced Latte', '160')">
+                            Order Now <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3: Snacks -->
+            <div class="menu-item" data-category="snacks">
+                <div class="item-img-container">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600" alt="Club Sandwich">
+                </div>
+                <div class="item-info">
+                    <h3>Smoked Chicken Grilled Sandwich</h3>
+                    <p class="item-desc">Crusty artisan bread loaded with premium smoked chicken and melted cheese.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹180</span>
+                        <button class="order-btn" onclick="orderViaWhatsApp('Smoked Chicken Grilled Sandwich', '180')">
+                            Order Now <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4: Desserts -->
+            <div class="menu-item" data-category="desserts">
+                <div class="item-img-container">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=600" alt="Chocolate Fudge">
+                </div>
+                <div class="item-info">
+                    <h3>Sizzling Chocolate Fudge</h3>
+                    <p class="item-desc">Warm, rich chocolate brownie topped with vanilla ice cream and hot fudge swirl.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹210</span>
+                        <button class="order-btn" onclick="orderViaWhatsApp('Sizzling Chocolate Fudge', '210')">
+                            Order Now <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-logo">Cafe<span>Indica</span></p>
+            <p><i class="fas fa-map-marker-alt"></i> B-Block, Kalyani, West Bengal</p>
+            <p class="copyright">© 2026 Cafe Indica. All Rights Privately Owned & Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC (Embedded) -->
+    <script>
+        // IMPORTANT: Replace this with your exact WhatsApp Business Number (with country code 91, no spaces/special characters)
+        const CAFE_WHATSAPP_NUMBER = "919876543210"; 
+
+        // Dynamic Order Routing
+        function orderViaWhatsApp(itemName, itemPrice) {
+            const message = `Hello Cafe Indica! I would like to place an order from the website:\n\n` +
+                            `🍔 *Item Name:* ${itemName}\n` +
+                            `💰 *Price:* ₹${itemPrice}\n\n` +
+                            `Please confirm my order. Thanks!`;
+                            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${CAFE_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Live Category Filtering 
+        function filterMenu(category, event) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const items = document.querySelectorAll('.menu-item');
             items.forEach(item => {
-                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                html += `
-                <div class="item-card">
-                    <div class="item-details">
-                        <span class="item-name">${item.n}</span>
-                        <span class="item-price">₹${item.p}</span>
-                    </div>
-                    <div class="controls">
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">-</button>
-                        <span class="qty-val" id="qty-${id}">0</span>
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button>
-                    </div>
-                </div>`;
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
             });
-            html += `</div>`;
         }
-        container.innerHTML = html;
-    }
-
-    function updateQty(name, price, delta, id) {
-        if (!cart[name]) cart[name] = { qty: 0, price: price };
-        cart[name].qty += delta;
-        if (cart[name].qty <= 0) {
-            delete cart[name];
-            document.getElementById(`qty-${id}`).innerText = 0;
-        } else {
-            document.getElementById(`qty-${id}`).innerText = cart[name].qty;
-        }
-        updateCartBar();
-    }
-
-    function updateCartBar() {
-        const bar = document.getElementById('cart-bar');
-        let tQty = 0, tAmt = 0;
-        for (const i in cart) { tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); }
-        if (tQty > 0) {
-            bar.style.display = 'flex';
-            document.getElementById('total-qty').innerText = tQty;
-            document.getElementById('total-amt').innerText = '₹' + tAmt;
-        } else {
-            bar.style.display = 'none';
-        }
-    }
-
-    function sendToWhatsApp() {
-        let msg = "*New Order - Thakurmar Bari Cafe*%0A------------------------------%0A";
-        let total = 0;
-        for (const i in cart) {
-            msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`;
-            total += cart[i].qty * cart[i].price;
-        }
-        msg += `------------------------------%0A*Total Bill: ₹${total}*%0A%0APlease confirm my order.`;
-        window.open(`https://wa.me/918335952010?text=${msg}`, '_blank');
-    }
-
-    renderMenu();
-</script>
-
+    </script>
 </body>
-</html>
+    </html>
+                        
